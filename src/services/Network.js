@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { apiURL, apiHEADER, marketZone } from '../components/GlobalHelpers';
 
-<<<<<<< HEAD
 export function getVip(callback,id){
     $.ajax({
         'type':'GET',
@@ -29,8 +28,6 @@ export function expandCustomer(callback,token,id){
     });
 }
 
-=======
->>>>>>> lim
 export function hydraRequestByUrl(callback,token,url){
     $.ajax({
         'type':'GET',

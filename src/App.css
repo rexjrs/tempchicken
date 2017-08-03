@@ -21,15 +21,12 @@ button{
 .no-padding{
     padding: 0px;
 }
-<<<<<<< HEAD
 .no-padding-right{
     padding-right: 0px;
 }
 .no-padding-left{
     padding-left: 0px;
 }
-=======
->>>>>>> lim
 .auto-margin{
     margin: auto;
 }
@@ -281,7 +278,6 @@ button{
     }
 }
 /*Report*/
-<<<<<<< HEAD
 .report-user-view-table{
     width: 100%;
     border: 1px solid #CCC;
@@ -315,8 +311,6 @@ button{
     padding-top: 15px;
     padding-bottom: 15px;
 }
-=======
->>>>>>> lim
 .report-modal-container{
     position: fixed;
     height: 100vh;
@@ -513,8 +507,6 @@ button{
     -webkit-transform: scale3D(0, 0, 1);
             transform: scale3D(0, 0, 1);
   } 
-<<<<<<< HEAD
-=======
 }
 
 /* Kpitable */
@@ -544,5 +536,4 @@ table {
     width: 100%;
     align-content: center;
     margin-bottom: 15px;
->>>>>>> lim
 }

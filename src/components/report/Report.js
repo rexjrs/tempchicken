@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { reportOrder, getProduct } from '../../services/Network';
 import OrderTab from './OrderTab';
 import ReportTab from './ReportTab';
-<<<<<<< HEAD
-=======
 import KpiTab from './KpiTab';
->>>>>>> lim
 
 class Report extends Component {
     constructor(props) {
@@ -14,16 +11,13 @@ class Report extends Component {
             tabIndex: 0,
             orderMonth: 0,
             orderDataSource: [],
-<<<<<<< HEAD
             reportDataSource: [],
             loadingOrder: true,
             nodata: false,
-            reportLoading: false
-=======
+            reportLoading: false,
             loadingOrder: true,
             nodata: false,
             dataKpi: null
->>>>>>> lim
         };
     }
 
@@ -32,15 +26,12 @@ class Report extends Component {
         this.fetchProduct();
     }
 
-<<<<<<< HEAD
     setAnyState(key,value){
         this.setState({
             [key]: value
         })
     }
 
-=======
->>>>>>> lim
     fetchProduct(){
         getProduct(((res,status)=>{
             if(status){
@@ -69,15 +60,15 @@ class Report extends Component {
         }),localStorage.getItem('customerToken'),month)
     }
 
-<<<<<<< HEAD
     setReportDataSource(data){
         this.setState({
             reportDataSource: data
-=======
+        })
+    }
+    
     setDataKpi(data){
         this.setState({
             dataKpi: data
->>>>>>> lim
         })
     }
 
@@ -114,21 +105,14 @@ class Report extends Component {
                 </div>
                 <br/>
                 {this.state.tabIndex === 0 &&
-<<<<<<< HEAD
                 <ReportTab language={this.props.language} customerData={this.props.customerData} reportDataSource={this.state.reportDataSource} setReportDataSource={this.setReportDataSource.bind(this)} setAnyState={this.setAnyState.bind(this)} reportLoading={this.state.reportLoading}/>
-=======
-                <ReportTab language={this.props.language} customerData={this.props.customerData}/>
->>>>>>> lim
                 }
                 {this.state.tabIndex === 1 &&
                 <OrderTab language={this.props.language} productDataSource={this.props.productDataSource} changeMonth={this.changeMonth.bind(this)} orderMonth={this.state.orderMonth} loadingOrder={this.state.loadingOrder} nodata={this.state.nodata} orderDataSource={this.state.orderDataSource} />
                 }
-<<<<<<< HEAD
-=======
                 {this.state.tabIndex === 2 &&
                 <KpiTab language={this.props.language} customerData={this.props.customerData} dataKpi={this.state.dataKpi} setDataKpi={this.setDataKpi.bind(this)}/>
                 }
->>>>>>> lim
             </div>
         );
     }
