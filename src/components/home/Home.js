@@ -83,9 +83,9 @@ class Home extends Component {
                 </div>
                 <div className="row home-row-buttons">
                       <div className="col text-center">
-                        <button onClick={() => this.switchMetricPeriod(0)} className={this.btnActive('0')}>{ moment(this.props.customerData.metricsProfileHistory.items[0].period).format('MMMM YYYY') }</button>
-                        <button onClick={() => this.switchMetricPeriod(1)} className={this.btnActive('1')}>{ moment(this.props.customerData.metricsProfileHistory.items[1].period).format('MMMM YYYY') }</button>
-                        <button onClick={() => this.switchMetricPeriod(2)} className={this.btnActive('2')}>{ moment(this.props.customerData.metricsProfileHistory.items[2].period).format('MMMM YYYY') }</button>
+                        <button onClick={() => this.switchMetricPeriod(0)} className={this.btnActive('0')}>{ moment(this.props.customerData.metricsProfileHistory.items[0].period).format('MMM YYYY') }</button>
+                        <button onClick={() => this.switchMetricPeriod(1)} className={this.btnActive('1')}>{ moment(this.props.customerData.metricsProfileHistory.items[1].period).format('MMM YYYY') }</button>
+                        <button onClick={() => this.switchMetricPeriod(2)} className={this.btnActive('2')}>{ moment(this.props.customerData.metricsProfileHistory.items[2].period).format('MMM YYYY') }</button>
                     </div>  
                 </div>
                 <br/>
