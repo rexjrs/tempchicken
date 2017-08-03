@@ -9,9 +9,13 @@ export var apiURL = {
     orderHistory: "https://member-th.unicity.com/mobile/queryorder.php?type=1&token=",
     queryOrder: "https://member-th.unicity.com/mobile/queryorder.php?type=2&token=",
     whoAmI: "https://hydra.unicity.net/v5/whoami",
+<<<<<<< HEAD
     getPeriod: "https://thdl1.unicity-easynet.com/commission_html/getdate.php",
     expandCustomer: "https://hydra.unicity.net/v5/customers?unicity=",
     getVip: "https://member-calls.unicity.com/v5/customers/me/fsb?id="
+=======
+    getPeriod: "https://thdl1.unicity-easynet.com/commission_html/getdate.php"
+>>>>>>> lim
 }
 
 export var links = {
@@ -121,7 +125,24 @@ export var translationsEN = {
     tell_us: "Please tell us what you think, any kind of feedback is highly appreciated.",
     tell_us_something: "Please tell us something",
     thank_you_feedback: "Thank you for submitting your feedback.",
+<<<<<<< HEAD
     feedback_issue: "There was an issue submitting your feedback. Please try again later."
+=======
+    feedback_issue: "There was an issue submitting your feedback. Please try again later.",
+    // KpiTab
+    title_downline:"All Downline",
+    DL_totalBa:"Total BA",
+    DL_totalActive:"Total Active BA",
+    DL_precentage:"Precentage",
+    title_perid:"Period",
+    title_OV:"OV",
+    title_level:"Level",
+    title_Ba:"BA",
+    title_rank:"Rank",
+    title_Qualified:"Qualified",
+    title_rank_advances:"Rank Advances To",
+
+>>>>>>> lim
 }
 
 export var translationsTH = {
@@ -186,5 +207,22 @@ export var translationsTH = {
     tell_us: "กรุณาบอกให้เราทราบข้อเสนอแนะที่เป็นประโยชน์ต่อการพัฒนาเว็บไซต์",
     tell_us_something: "กรุณาพิมพ์ข้อความ",
     thank_you_feedback: "ขอบคุณที่แสดงความแนะนำ",
+<<<<<<< HEAD
     feedback_issue: "มีปัญหากับระบบ"
+=======
+    feedback_issue: "มีปัญหากับระบบ",
+    // KpiTab
+    title_downline:"จำนวนดาวน์ไลน์ทั้งหมด",
+    DL_totalBa:"จำนวนนักธุรกิจอิสระ",
+    DL_totalActive:"จำนวนนักธุระกิจอิสระ ที่แอคทีฟ",
+    DL_precentage:"เปอร์เซ็นต์จำนวนนักธุรกิจอิสระ ที่แอคทีฟ",
+    title_perid:"ประจำเดือน",
+    title_OV:"โอวี",
+    title_level:"ระดับชั้น",
+    title_Ba:"นักธุรกิจอิสระ",
+    title_rank:"ตำแหน่ง",
+    title_Qualified:"รักษาตำแหน่ง",
+    title_rank_advances:"ขึ้นตำแหน่ง",
+    
+>>>>>>> lim
 }

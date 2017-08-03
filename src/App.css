@@ -21,12 +21,15 @@ button{
 .no-padding{
     padding: 0px;
 }
+<<<<<<< HEAD
 .no-padding-right{
     padding-right: 0px;
 }
 .no-padding-left{
     padding-left: 0px;
 }
+=======
+>>>>>>> lim
 .auto-margin{
     margin: auto;
 }
@@ -278,6 +281,7 @@ button{
     }
 }
 /*Report*/
+<<<<<<< HEAD
 .report-user-view-table{
     width: 100%;
     border: 1px solid #CCC;
@@ -311,6 +315,8 @@ button{
     padding-top: 15px;
     padding-bottom: 15px;
 }
+=======
+>>>>>>> lim
 .report-modal-container{
     position: fixed;
     height: 100vh;
@@ -507,4 +513,36 @@ button{
     -webkit-transform: scale3D(0, 0, 1);
             transform: scale3D(0, 0, 1);
   } 
+<<<<<<< HEAD
+=======
+}
+
+/* Kpitable */
+.kpi-table-header{
+    background-color: #0159A0;
+    
+    height: 20px;
+    border: 1px solid #CCC;
+    border-collapse: collapse;
+    color: white;
+    text-align: center;
+}
+.kpi-table-borby{
+    text-align: center;
+
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+table {
+    width: 100%;
+    align-content: center;
+    margin-bottom: 15px;
+>>>>>>> lim
 }

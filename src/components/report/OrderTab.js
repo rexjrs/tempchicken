@@ -99,7 +99,11 @@ class OrderTab extends Component {
                     </div>
                     <br/>
                     {this.props.loadingOrder &&
+<<<<<<< HEAD
                     <Spinner/>
+=======
+                        <Spinner/>
+>>>>>>> lim
                     }
                     {!this.props.loadingOrder &&
                         orderList
