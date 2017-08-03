@@ -537,3 +537,14 @@ table {
     align-content: center;
     margin-bottom: 15px;
 }
+/* Commission */
+.commission-tab{
+    background: #F2F2F2;
+    border: 0px;
+    width: 50%;
+    height: 40px;
+}
+.commission-tab-active{
+    background: white;
+}
+ 

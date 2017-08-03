@@ -19,7 +19,7 @@ class SideBar extends Component {
                     <p onClick={()=>this.navigatePage('/')} className="linkSideBar">{this.props.language.home}</p>
                     <p onClick={()=>this.navigatePage('/genealogy')} className="linkSideBar">{this.props.language.genealogy}</p>
                     <p className="linkSideBar">{this.props.language.success}</p>
-                    <p className="linkSideBar">{this.props.language.commission}</p>
+                    <p onClick={()=>this.navigatePage('/commission')} className="linkSideBar">{this.props.language.commission}</p>
                     <p onClick={()=>this.navigatePage('/report')} className="linkSideBar">{this.props.language.report}</p>
                     <p onClick={()=>this.navigatePage('/news')} className="linkSideBar">{this.props.language.news}</p>
                     <p onClick={()=>this.navigatePage('/media')} className="linkSideBar">{this.props.language.media}</p>
