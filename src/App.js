@@ -19,6 +19,7 @@ import Feedback from './components/feedback/Feedback';
 import Seminar from './components/seminar/Seminar';
 import Profile from './components/profile/Profile';
 import Report from './components/report/Report';
+import Commission from './components/commission/Commission';
 
 class App extends Component {
     constructor(props) {
@@ -165,6 +166,12 @@ class App extends Component {
                                 stateUpdate={this.stateUpdate.bind(this)}
                                 customerData={this.state.customerData}
                                 newsDataSource={this.state.newsDataSource}
+                            />
+                        }/>
+                        <Route exact path={appConfig.appPath+"/commission"} render={()=>
+                            <Commission
+                                language={this.state.language}
+                                stateUpdate={this.stateUpdate.bind(this)}
                             />
                         }/>
                         <Route exact path={appConfig.appPath+"/news"} render={()=>
