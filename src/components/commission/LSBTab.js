@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { serviceGetNews } from '../../services/Network';
 
 class LSBTab extends Component {
     constructor(props) {

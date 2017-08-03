@@ -12,8 +12,6 @@ class Report extends Component {
             orderMonth: 0,
             orderDataSource: [],
             reportDataSource: [],
-            loadingOrder: true,
-            nodata: false,
             reportLoading: false,
             loadingOrder: true,
             nodata: false,

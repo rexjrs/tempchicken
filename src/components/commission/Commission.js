@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { serviceGetNews } from '../../services/Network';
 import CommissionTab from './CommissionTab';
 import LSBTab from './LSBTab';
 

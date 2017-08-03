@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { serviceGetNews } from '../../services/Network';
 
 class CommissionTab extends Component {
     constructor(props) {

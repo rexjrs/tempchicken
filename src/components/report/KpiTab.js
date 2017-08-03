@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Spinner from '../Spinner';
-import ShowOrder from './ShowOrder';
 import $ from 'jquery';
-import { queryOrder } from '../../services/Network';
 
 class KpiTab extends Component {
     constructor(props) {
