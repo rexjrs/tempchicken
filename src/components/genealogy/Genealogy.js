@@ -17,7 +17,10 @@ class Genealogy extends Component {
             hide: false,
             next: null,
             prev: null,
-            inProgress: false
+            inProgress: false,
+            orderType: 'asc',
+            sortType: 'id',
+            showAll: true
         };
         this.handleScroll = this.handleScroll.bind(this);
     }
@@ -32,6 +35,126 @@ class Genealogy extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    sortData(type){
+        let orderType;
+        let sortType;
+        if(this.state.orderType === "desc"){
+            orderType = "asc";
+        }else{
+            orderType = "desc";
+        }
+        let tempArray = this.state.dataSource;
+        switch(type){
+            case "id":
+                sortType = 'id';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.id.unicity - a.customer.id.unicity;
+                    }else{
+                        return a.customer.id.unicity - b.customer.id.unicity;
+                    }
+                });
+                break;
+            case "pv0":
+                sortType = 'pv0';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[0].value.pv - a.customer.metricsProfileHistory.items[0].value.pv;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[0].value.pv - b.customer.metricsProfileHistory.items[0].value.pv;
+                    }
+                });
+                break;
+            case "tv0":
+                sortType = 'tv0';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[0].value.tv - a.customer.metricsProfileHistory.items[0].value.tv;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[0].value.tv - b.customer.metricsProfileHistory.items[0].value.tv;
+                    }
+                });
+                break;
+            case "ov0":
+                sortType = 'ov0';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[0].value.ov - a.customer.metricsProfileHistory.items[0].value.ov;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[0].value.ov - b.customer.metricsProfileHistory.items[0].value.ov;
+                    }
+                });
+                break;
+            case "pv1":
+                sortType = 'pv1';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[1].value.pv - a.customer.metricsProfileHistory.items[1].value.pv;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[1].value.pv - b.customer.metricsProfileHistory.items[1].value.pv;
+                    }
+                });
+                break;
+            case "tv1":
+                sortType = 'tv1';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[1].value.tv - a.customer.metricsProfileHistory.items[1].value.tv;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[1].value.tv - b.customer.metricsProfileHistory.items[1].value.tv;
+                    }
+                });
+                break;
+            case "ov1":
+                sortType = 'ov1';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[1].value.ov - a.customer.metricsProfileHistory.items[1].value.ov;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[1].value.ov - b.customer.metricsProfileHistory.items[1].value.ov;
+                    }
+                });
+                break;
+            case "pv2":
+                sortType = 'pv2';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[2].value.pv - a.customer.metricsProfileHistory.items[2].value.pv;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[2].value.pv - b.customer.metricsProfileHistory.items[2].value.pv;
+                    }
+                });
+                break;
+            case "tv2":
+                sortType = 'tv2';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[2].value.tv - a.customer.metricsProfileHistory.items[2].value.tv;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[2].value.tv - b.customer.metricsProfileHistory.items[2].value.tv;
+                    }
+                });
+                break;
+            case "ov2":
+                sortType = 'ov2';
+                tempArray.sort(function(a, b) {
+                    if(orderType === "desc"){
+                        return b.customer.metricsProfileHistory.items[2].value.ov - a.customer.metricsProfileHistory.items[2].value.ov;
+                    }else{
+                        return a.customer.metricsProfileHistory.items[2].value.ov - b.customer.metricsProfileHistory.items[2].value.ov;
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+        this.setState({
+            dataSource: tempArray,
+            orderType: orderType,
+            sortType: sortType
+        });
     }
 
     handleScroll() {
@@ -63,7 +186,7 @@ class Genealogy extends Component {
             getGenealogy((res,status)=>{
                 if(status){
                     this.setState({
-                        originalData: res.items,
+                        originalData: JSON.parse(JSON.stringify(res.items)),
                         originalNext: res.next,
                         dataSource: res.items,
                         loading: false,
@@ -114,7 +237,7 @@ class Genealogy extends Component {
                 last = true;
             }
             return(
-                <LeftCell key={i} last={last} data={b}/>
+                <LeftCell key={i} showAll={this.state.showAll} last={last} data={b}/>
             )
         });
         let levels = [];
@@ -122,6 +245,23 @@ class Genealogy extends Component {
             levels.push(
                 <option key={i} value={i}>{i}</option>
             );
+        }
+        this.showAllActive = (value) => {
+            switch(value){
+                case 0:
+                    if(this.state.showAll){
+                        return 'global-connected-button-left global-connected-button-active'
+                    }else{
+                        return 'global-connected-button-left'
+                    }
+                case 1:
+                    if(!this.state.showAll){
+                        return 'global-connected-button-middle global-connected-button-active'
+                    }else{
+                        return 'global-connected-button-middle'
+                    }
+                default:
+            }
         }
         return (
             <div className="container-fluid global-container-bottom-padding genealogy-page-wrapper">
@@ -132,13 +272,17 @@ class Genealogy extends Component {
                 {!this.state.loading &&
                 <div>
                     <div className="row no-margin">
-                        <div className="col no-padding">
+                        <div className="col-6 no-padding">
                             <div className="genealogy-select-container">
                                 <p className="no-margin select-level-text">Select Level:</p>
                                 <select className="genealogy-select" value={this.state.level} onChange={(event)=>this.changeLevel(event)}>
                                     {levels}
                                 </select>
                             </div>
+                        </div>
+                        <div className="col-6 no-padding text-right">
+                            <button onClick={()=>this.setState({showAll: true})} className={this.showAllActive(0)}>Show All</button>
+                            <button onClick={()=>this.setState({showAll: false})} className={this.showAllActive(1)}>Show Less</button>
                         </div>
                     </div>
                     <br/>
@@ -162,7 +306,7 @@ class Genealogy extends Component {
                             { leftSide }
                         </div>
                         <div className={this.state.column+" "+this.state.columnSm+" no-padding genealogy-table-col"}>
-                            <Table hide={this.state.hide} showSide={this.showSide.bind(this)} dataSource={this.state.dataSource}/>
+                            <Table showAll={this.state.showAll} orderType={this.state.orderType} sortType={this.state.sortType} sortData={this.sortData.bind(this)} hide={this.state.hide} showSide={this.showSide.bind(this)} dataSource={this.state.dataSource}/>
                         </div>
                     </div>
                     <br/>

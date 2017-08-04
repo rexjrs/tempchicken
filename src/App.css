@@ -306,9 +306,10 @@ button{
 }
 .genealogy-select-container{
     background: white;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
     border: 1px solid #CCC;
-    width: 170px;
 }
 .genealogy-page-wrapper{
     min-height: 100vh;
@@ -372,7 +373,13 @@ button{
 }
 @media screen and (min-width: 550px) {
     .genealogy-table{
-        width: 250%;
+        width: 100%;
+    }
+    .genealogy-table > thead > tr > th{
+        padding: 0px;
+    }
+    .genealogy-table > tbody > tr > td{
+        padding: 0px;
     }
 }
 .genealogy-table > thead > tr > th{

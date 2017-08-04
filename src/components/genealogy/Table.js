@@ -11,7 +11,7 @@ class Table extends Component {
     render() {
         var row = this.props.dataSource.map((b,i)=>{
             return(
-                <Row key={i} data={b}/>
+                <Row key={i} showAll={this.props.showAll} data={b}/>
             )
         });
         return (
@@ -27,18 +27,118 @@ class Table extends Component {
 
                     </tr>
                     <tr>
-                        <th>ID</th>
+                        <th onClick={()=>this.props.sortData('id')}>
+                            ID 
+                            {this.props.sortType === "id" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "id" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
                         <th>Rank</th>
                         <th>Vip</th>
-                        <th>PV</th>
-                        <th>TV</th>
-                        <th>OV</th>
-                        <th>PV</th>
-                        <th>TV</th>
-                        <th>OV</th>
-                        <th>PV</th>
-                        <th>TV</th>
-                        <th>OV</th>
+                        <th onClick={()=>this.props.sortData('pv0')}>
+                            PV
+                            {this.props.sortType === "pv0" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "pv0" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('tv0')}>
+                            TV
+                            {this.props.sortType === "tv0" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "tv0" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('ov0')}>
+                            OV
+                            {this.props.sortType === "ov0" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "ov0" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('pv1')}>
+                            PV
+                            {this.props.sortType === "pv1" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "pv1" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('tv1')}>
+                            TV
+                            {this.props.sortType === "tv1" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "tv1" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('ov1')}>
+                            OV
+                            {this.props.sortType === "ov1" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "ov1" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('pv2')}>
+                            PV
+                            {this.props.sortType === "pv2" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "pv2" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('tv2')}>
+                            TV
+                            {this.props.sortType === "tv2" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "tv2" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
+                        <th onClick={()=>this.props.sortData('ov2')}>
+                            OV
+                            {this.props.sortType === "ov2" &&
+                                this.props.orderType === "asc" &&
+                                <i className="fa fa-chevron-up" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                            {this.props.sortType === "ov2" &&
+                                this.props.orderType === "desc" &&
+                                <i className="fa fa-chevron-down" aria-hidden="true" style={{fontSize: 8}}></i>
+                            }
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
