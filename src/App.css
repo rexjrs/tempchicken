@@ -15,6 +15,9 @@ button{
     padding-top: 55px;
     padding-bottom: 25px;
 }
+.overscroll{
+    overflow: scroll;
+}
 .no-margin{
     margin: 0px;
 }
@@ -138,7 +141,7 @@ button{
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     height: 55px;
     background-image: url(./assets/tab.png);
     background-repeat: no-repeat;
@@ -276,6 +279,127 @@ button{
     .home-social-media-pins{
         max-width: 100px;
     }
+}
+/*Genealogy*/
+.hide-box{
+    height: 50px;
+    border: 0px;
+    display: table;
+    width: 100%;
+    text-align: center;
+}
+.hide-box-inner{
+    font-size: 30px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.main-row{
+    margin: 0;
+    border: 1px solid #CCC;
+}
+.select-level-text{
+    display: inline;
+    margin-right: 10px;
+}
+.genealogy-select{
+    border: 1px solid #CCC;
+}
+.genealogy-select-container{
+    background: white;
+    padding: 10px;
+    border: 1px solid #CCC;
+    width: 170px;
+}
+.genealogy-page-wrapper{
+    min-height: 100vh;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #F2F2F2;
+}
+.col-shadow{
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    box-shadow: 2px 0px 5px -1px #CCC;
+    z-index: 1;
+    background: white;
+}
+.left-cell{
+    height: 49px;
+    text-align: center;
+} 
+.lvl-cell{
+    display: table;
+    width: 100%;
+    font-size: 10px;
+}
+.left-cell-font{
+    color: #3191cb;
+    font-weight: bold;
+    font-size: 15px;
+}
+.left-cell-row{
+    height: 50px;
+    border-bottom: 1px solid #CCC;
+}
+.top-thead{
+    border-top: 0px !important;
+}
+.linearBG{
+    background: -webkit-linear-gradient(rgb(4, 165, 234) 0%, rgb(4, 100, 157) 100%) !important;
+    background: -moz-linear-gradient(rgb(4, 165, 234) 0%, rgb(4, 100, 157) 100%) !important;
+    background: -o-linear-gradient(rgb(4, 165, 234) 0%, rgb(4, 100, 157) 100%) !important;
+    background: linear-gradient(rgb(4, 165, 234) 0%, rgb(4, 100, 157) 100%) !important;
+    color: white !important;
+}
+.cool-background{
+    color: #3191cb;
+    font-weight: bold;
+    font-size: 15px;
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+}
+.vertical-mid{
+    vertical-align: middle;
+    display: table-cell;
+}
+.name-cell{
+    padding: 8px;
+}
+.genealogy-table{
+    width: 300%;
+    margin: 0px;
+    font-size: 12px;
+}
+@media screen and (min-width: 550px) {
+    .genealogy-table{
+        width: 250%;
+    }
+}
+.genealogy-table > thead > tr > th{
+    height: 50px;
+    text-align: center;
+    color: #3191cb;
+    font-weight: bold;
+    font-size: 15px;
+    border: 0px;
+    border-top: 1px solid #CCC;
+    background: white;
+}
+.genealogy-table > tbody > tr > td{
+    width: 8.333333%;
+    height: 50px;
+    text-align: center;
+    border-right: 0px;
+    border-left: 0px;
+    background: white;
+}
+.genealogy-table-col{
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+} 
+.lastCSS{
+    border-bottom: 0px;
+    height: 49px;
 }
 /*Report*/
 .report-user-view-table{

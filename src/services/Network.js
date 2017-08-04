@@ -1,6 +1,20 @@
 import $ from 'jquery';
 import { apiURL, apiHEADER, marketZone } from '../components/GlobalHelpers';
 
+export function getGenealogy(callback,href,level,limit,token){
+    let url = href+'/sponsoredCustomersTreePreOrder?maxTreeDepth='+level+'&limit='+limit+'&country='+marketZone+'&expand=self&_httpHeaderAuthorization=Bearer%20'+token;
+    $.ajax({
+        'type':'GET',
+        'url': url,
+        'success':function (result) {
+            callback(result,true)
+        },
+        'error':function (result) {
+            callback(result,false)
+        }
+    });
+}
+
 export function getVip(callback,id){
     $.ajax({
         'type':'GET',
