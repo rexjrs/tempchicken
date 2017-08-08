@@ -7,13 +7,25 @@ class Commission extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabIndex:0
+            tabIndex:0,
+            LSBData:{},
+            commission: []
         };
     }
 
     changeTab(value){
         this.setState({
             tabIndex:value
+        })
+    }
+    setDataLSB(value){
+        this.setState({
+            LSBData:value
+        })
+    }
+    setDataCommission(value){
+        this.setState({
+            commission:value
         })
     }
 
@@ -44,10 +56,10 @@ class Commission extends Component {
                     <button onClick={()=>this.changeTab(1)} className={this.btnActive(1)}>LSB</button>
                 </div>
                 {this.state.tabIndex === 0 &&
-                    <CommissionTab/>
+                    <CommissionTab customerData={this.props.customerData} commissionData={this.state.commission} setDataCommission={this.setDataCommission.bind(this)}/>
                 }
                 {this.state.tabIndex === 1 &&
-                    <LSBTab/>
+                    <LSBTab LSBData={this.state.LSBData} setDataLSB={this.setDataLSB.bind(this)} />
                 }
             </div>
         );
