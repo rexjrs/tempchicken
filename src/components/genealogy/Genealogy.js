@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getGenealogy, hydraRequestByUrl } from '../../services/Network';
+import { rankListOrdered } from '../GlobalHelpers';
 import LeftCell from './LeftCell';
 import Table from './Table';
 import Spinner from '../Spinner';
@@ -37,7 +38,11 @@ class Genealogy extends Component {
         window.removeEventListener("scroll", this.handleScroll);
     }
 
-    sortData(type){
+    sortDataCallback(){
+        this.sortData(this.state.sortType,this.state.numeric,this.state.orderType)
+    }
+
+    sortData(type,numeric,overRideType){
         let orderType;
         let sortType;
         if(this.state.orderType === "desc"){
@@ -45,115 +50,71 @@ class Genealogy extends Component {
         }else{
             orderType = "desc";
         }
-        let tempArray = this.state.dataSource;
-        switch(type){
-            case "id":
-                sortType = 'id';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.id.unicity - a.customer.id.unicity;
-                    }else{
-                        return a.customer.id.unicity - b.customer.id.unicity;
-                    }
-                });
-                break;
-            case "pv0":
-                sortType = 'pv0';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[0].value.pv - a.customer.metricsProfileHistory.items[0].value.pv;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[0].value.pv - b.customer.metricsProfileHistory.items[0].value.pv;
-                    }
-                });
-                break;
-            case "tv0":
-                sortType = 'tv0';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[0].value.tv - a.customer.metricsProfileHistory.items[0].value.tv;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[0].value.tv - b.customer.metricsProfileHistory.items[0].value.tv;
-                    }
-                });
-                break;
-            case "ov0":
-                sortType = 'ov0';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[0].value.ov - a.customer.metricsProfileHistory.items[0].value.ov;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[0].value.ov - b.customer.metricsProfileHistory.items[0].value.ov;
-                    }
-                });
-                break;
-            case "pv1":
-                sortType = 'pv1';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[1].value.pv - a.customer.metricsProfileHistory.items[1].value.pv;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[1].value.pv - b.customer.metricsProfileHistory.items[1].value.pv;
-                    }
-                });
-                break;
-            case "tv1":
-                sortType = 'tv1';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[1].value.tv - a.customer.metricsProfileHistory.items[1].value.tv;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[1].value.tv - b.customer.metricsProfileHistory.items[1].value.tv;
-                    }
-                });
-                break;
-            case "ov1":
-                sortType = 'ov1';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[1].value.ov - a.customer.metricsProfileHistory.items[1].value.ov;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[1].value.ov - b.customer.metricsProfileHistory.items[1].value.ov;
-                    }
-                });
-                break;
-            case "pv2":
-                sortType = 'pv2';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[2].value.pv - a.customer.metricsProfileHistory.items[2].value.pv;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[2].value.pv - b.customer.metricsProfileHistory.items[2].value.pv;
-                    }
-                });
-                break;
-            case "tv2":
-                sortType = 'tv2';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[2].value.tv - a.customer.metricsProfileHistory.items[2].value.tv;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[2].value.tv - b.customer.metricsProfileHistory.items[2].value.tv;
-                    }
-                });
-                break;
-            case "ov2":
-                sortType = 'ov2';
-                tempArray.sort(function(a, b) {
-                    if(orderType === "desc"){
-                        return b.customer.metricsProfileHistory.items[2].value.ov - a.customer.metricsProfileHistory.items[2].value.ov;
-                    }else{
-                        return a.customer.metricsProfileHistory.items[2].value.ov - b.customer.metricsProfileHistory.items[2].value.ov;
-                    }
-                });
-                break;
-            default:
-                break;
+        if(overRideType){
+            orderType = overRideType;
         }
+        let tempArray = this.state.dataSource;
+        if(type === "id"){
+            sortType = 'id';
+            tempArray.sort(function(a, b) {
+                if(orderType === "desc"){
+                    return b.customer.id.unicity - a.customer.id.unicity;
+                }else{
+                    return a.customer.id.unicity - b.customer.id.unicity;
+                }
+            });
+        }else if(type === "rank"){
+            sortType = 'rank';
+            tempArray.sort(function(a, b) {
+                if(orderType === "desc"){
+                    return b.rankOrder - a.rankOrder;
+                }else{
+                    return a.rankOrder - b.rankOrder;
+                }
+            });
+        }else if(type === "fsb"){
+            sortType = 'fsb';
+            tempArray.sort(function(a, b) {
+                if(orderType === "desc"){
+                    return b.fsbRank - a.fsbRank;
+                }else{
+                    return a.fsbRank - b.fsbRank;
+                }
+            });
+        }else{
+            type = type.substr(0,2);
+            sortType = type+numeric
+            tempArray.sort(function(a, b) {
+                let tempTypeB = type;
+                let tempTypeA = type;
+                if(orderType === "desc"){
+                    if(type === "tv"){
+                        if(b.customer.metricsProfileHistory.items[numeric].value.gv > -1){
+                            tempTypeB = "gv"
+                        }
+                        if(a.customer.metricsProfileHistory.items[numeric].value.gv > -1){
+                            tempTypeA = "gv"
+                        }
+                    }
+                    return b.customer.metricsProfileHistory.items[numeric].value[tempTypeB] - a.customer.metricsProfileHistory.items[numeric].value[tempTypeA];
+                }else{
+                    if(type === "tv"){
+                        if(b.customer.metricsProfileHistory.items[numeric].value.gv > -1){
+                            tempTypeB = "gv"
+                        }
+                        if(a.customer.metricsProfileHistory.items[numeric].value.gv > -1){
+                            tempTypeA = "gv"
+                        }
+                    }
+                    return a.customer.metricsProfileHistory.items[numeric].value[tempTypeA] - b.customer.metricsProfileHistory.items[numeric].value[tempTypeB];
+                }
+            });
+        }      
         this.setState({
             dataSource: tempArray,
             orderType: orderType,
-            sortType: sortType
+            sortType: sortType,
+            numeric: numeric
         });
     }
 
@@ -171,20 +132,30 @@ class Genealogy extends Component {
             }
         }
         if(window.pageYOffset === 0){
-            this.setState({
-                dataSource: this.state.originalData,
-                next: this.state.originalNext
-            })
+            // this.setState({
+            //     dataSource: this.state.originalData,
+            //     next: this.state.originalNext
+            // })
         }
     }
 
     fetchGenealogy(href,extraPage){
         this.setState({inProgress: true})
         href = localStorage.getItem('customerHref');
+        href = href.replace("https://hydra.unicity.net/", "https://member-calls.unicity.com/");
         if(!extraPage){
             this.setState({loading: true})
             getGenealogy((res,status)=>{
                 if(status){
+                    res.items.map((b,i)=>{
+                        b.rankOrder = rankListOrdered[b.customer.cumulativeMetricsProfile.highestRankShort];
+                        if(b.customer.FSB === "VIP"){
+                            b.fsbRank = 1;
+                        }else{
+                            b.fsbRank = 0;
+                        }
+                        return false;
+                    });
                     this.setState({
                         originalData: JSON.parse(JSON.stringify(res.items)),
                         originalNext: res.next,
@@ -192,18 +163,27 @@ class Genealogy extends Component {
                         loading: false,
                         next: res.next,
                         inProgress: false
-                    });
+                    },this.sortDataCallback);
                 }
             },href,this.state.level,100,localStorage.getItem('customerToken'));
         }else{
             hydraRequestByUrl((res,status)=>{
                 let tempArray = this.state.dataSource;
                 let concatArray = tempArray.concat(res.items);
+                concatArray.map((b,i)=>{
+                    b.rankOrder = rankListOrdered[b.customer.cumulativeMetricsProfile.highestRankShort];
+                    if(b.customer.FSB === "VIP"){
+                        b.fsbRank = 1;
+                    }else{
+                        b.fsbRank = 0;
+                    }
+                    return false;
+                });
                 this.setState({
                     next: res.next,
                     dataSource: concatArray,
                     inProgress: false
-                })
+                },this.sortDataCallback)
             },localStorage.getItem('customerToken'),this.state.next);
         }
     }
@@ -297,7 +277,7 @@ class Genealogy extends Component {
                                         <div className="vertical-mid left-cell-font">LVL</div>
                                     </div>
                                 </div>
-                                <div className={"col-"+this.state.column+" no-padding overscroll"}>
+                                <div className={this.state.column+" no-padding"}>
                                     <div className="left-cell lvl-cell">
                                         <div className="vertical-mid left-cell-font">Name</div>
                                     </div>
@@ -309,9 +289,11 @@ class Genealogy extends Component {
                             <Table showAll={this.state.showAll} orderType={this.state.orderType} sortType={this.state.sortType} sortData={this.sortData.bind(this)} hide={this.state.hide} showSide={this.showSide.bind(this)} dataSource={this.state.dataSource}/>
                         </div>
                     </div>
-                    <br/>
                     {this.state.inProgress &&
-                    <Spinner/>
+                    <div>
+                        <br/>
+                        <Spinner/>
+                    </div>
                     }
                 </div>
                 }

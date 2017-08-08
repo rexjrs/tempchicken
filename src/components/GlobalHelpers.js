@@ -28,6 +28,21 @@ export var apiHEADER = {
     preset1: {'Content-Type':'application/json'},
 }
 
+export var rankListOrdered = {
+        "Dst" : 0,
+        "Ph1" : 1,
+        "Mgr" : 2,
+        "SrM" : 3,
+        "ExM" : 4,
+        "Dir" : 5,
+        "SrD" : 6,
+        "ExD" : 7,
+        "PrD" : 8,
+        "PrS" : 9,
+        "PrR" : 10,
+        "DIA" : 11
+}
+
 export var rankList = {
     "EN" : {
         "Dst" : "Distributor",

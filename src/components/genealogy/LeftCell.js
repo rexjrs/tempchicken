@@ -8,13 +8,21 @@ class LeftCell extends Component {
     }
 
     render() {
+        let tv = [];
+        for(var i = 0;i<3;i++){
+            if(this.props.data.customer.metricsProfileHistory.items[0].value.gv > -1){
+                tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.gv);
+            }else{
+                tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.tv);
+            }
+        }
         let showItems = true;
         let shorter = this.props.data.customer.metricsProfileHistory.items;
         if(!this.props.showAll){
             if(
-                shorter[0].value.pv === 0 && shorter[0].value.tv === 0 && shorter[0].value.ov === 0 &&
-                shorter[1].value.pv === 0 && shorter[1].value.tv === 0 && shorter[1].value.ov === 0 &&
-                shorter[2].value.pv === 0 && shorter[2].value.tv === 0 && shorter[2].value.ov === 0
+                shorter[0].value.pv === 0 && tv[0] === 0 && shorter[0].value.ov === 0 &&
+                shorter[1].value.pv === 0 && tv[1] === 0 && shorter[1].value.ov === 0 &&
+                shorter[2].value.pv === 0 && tv[2] === 0 && shorter[2].value.ov === 0
             ){
                 showItems = false;
             }
