@@ -26,7 +26,7 @@ class ReportTab extends Component {
             selectedLevel: 5,
             selectedMonth: "",
             hide: "hide",
-            animate: "fadeIn",
+            animate: "slideInUp",
             dateType: 'start',
             startDate: new Date(),
             endDate: new Date(),
@@ -53,7 +53,6 @@ class ReportTab extends Component {
                     tempArray.push(combined)
                     return false;
                 });
-                 console.log(tempArray)
                 this.setState({ selectMonth: tempArray, noDataMsg: false, noData: false, selectedMonth: tempArray[0], originalNoData: false });
             } else {
                 this.setState({ noDataMsg: true })
@@ -95,18 +94,18 @@ class ReportTab extends Component {
     }
 
     datePick(type, date) {
-        this.setState({ animate: "fadeOut", [type + "Date"]: date });
+        this.setState({ animate: "slideOutDown", [type + "Date"]: date });
         setTimeout(() => {
             this.setState({ hide: "hide" })
         }, 800);
     }
 
     openModal(type) {
-        this.setState({ hide: "", animate: "fadeIn", dateType: type })
+        this.setState({ hide: "", animate: "slideInUp", dateType: type })
     }
 
     closeModal() {
-        this.setState({ animate: "fadeOut" });
+        this.setState({ animate: "slideOutDown" });
         setTimeout(() => {
             this.setState({ hide: "hide" })
         }, 800);
@@ -248,93 +247,91 @@ class ReportTab extends Component {
                         </div>
                         <br />
                         <div className="row">
-                            <div className="col-4 text-right no-padding-right">Name:</div>
-                            <div className="col no-padding-left">&nbsp; {this.state.userData.customer.humanName.fullName}</div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Nick Name:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.customer && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.customer.nickName && <p className="no-margin">&nbsp;{this.state.userData.customer.nickName}</p>}
+                            <div className="col">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>{this.state.userData.customer.humanName.fullName}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nick Name</td>
+                                            <td>
+                                                {!this.state.userData.customer && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.customer.nickName && <p className="no-margin">&nbsp;{this.state.userData.customer.nickName}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Member ID</td>
+                                            <td>{this.state.userData.customer.id.unicity}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>VIP Code</td>
+                                            <td>
+                                                {!this.state.userData.vip && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.vip && <p className="no-margin">&nbsp;{this.state.userData.vip}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>
+                                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.email}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone No.</td>
+                                            <td>
+                                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.homePhone}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Enroller</td>
+                                            <td>
+                                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.enroller.id.unicity}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                {!this.state.userData.sponsor && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.sponsor && <p className="no-margin">&nbsp;{this.state.userData.enroller.items[0].humanName.fullName}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sponsor</td>
+                                            <td>
+                                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.sponsor.id.unicity}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                {!this.state.userData.sponsor && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.sponsor && <p className="no-margin">&nbsp;{this.state.userData.sponsor.items[0].humanName.fullName}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Enrolled</td>
+                                            <td>
+                                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{moment(this.state.userData.hydraObj.joinDate).format('DD MMM YYYY')}</p>}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status</td>
+                                            <td>
+                                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.status}, {this.state.userData.customer.cumulativeMetricsProfile.highestRankShort}</p>}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Member ID:</div>
-                            <div className="col no-padding-left">&nbsp; {this.state.userData.customer.id.unicity}</div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">VIP Code:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.vip && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.vip && <p className="no-margin">&nbsp;{this.state.userData.vip}</p>}
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Email:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.email}</p>}
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Phone No:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.homePhone}</p>}
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Enroller:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.enroller.id.unicity}</p>}
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right"></div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.enroller && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.enroller && <p className="no-margin">&nbsp;{this.state.userData.enroller.items[0].humanName.fullName}</p>}
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Sponsor:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.sponsor.id.unicity}</p>}
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right"></div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.sponsor && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.sponsor && <p className="no-margin">&nbsp;{this.state.userData.sponsor.items[0].humanName.fullName}</p>}
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Enrolled:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{moment(this.state.userData.hydraObj.joinDate).format('DD MMM YYYY')}</p>}
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="row">
-                            <div className="col-4 text-right no-padding-right">Status:</div>
-                            <div className="col no-padding-left">
-                                {!this.state.userData.hydraObj && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                {this.state.userData.hydraObj && <p className="no-margin">&nbsp;{this.state.userData.hydraObj.status}, {this.state.userData.customer.cumulativeMetricsProfile.highestRankShort}</p>}
-                            </div>
-                        </div>
-                        <br/>
                         <div className="row">
                             <div className="col">
                                 <table className="report-user-view-table">
@@ -378,8 +375,8 @@ class ReportTab extends Component {
                                 <p className="report-select-text">{this.props.language.select_report}</p>
                                 {this.state.selectedType === "metricsProfile_newba" &&
                                     <div>
-                                        <p className="report-select-text">Start Date</p>
-                                        <p className="report-select-text">End Date</p>
+                                        <p className="report-select-text">{this.props.language.start_date}</p>
+                                        <p className="report-select-text">{this.props.language.end_date}</p>
                                     </div>
                                 }
                                 {this.state.selectedType !== "metricsProfile_newba" &&
@@ -426,9 +423,10 @@ class ReportTab extends Component {
                     </div>
                 }
                 <div className={"report-modal-container animated " + this.state.hide + ' ' + this.state.animate}>
+                    <div onClick={()=>this.closeModal()} className="empty-modal-top"></div>
                     <div className="report-modal">
                         <div className="report-modal-top">
-                            <button onClick={this.closeModal.bind(this)} className="global-button global-button-active close-modal-btn">Cancel</button>
+                            <button onClick={this.closeModal.bind(this)} className="global-button global-button-active close-modal-btn">{this.props.language.cancel}</button>
                         </div>
                         <div className="report-modal-content">
                             {this.state.dateType === "start" &&

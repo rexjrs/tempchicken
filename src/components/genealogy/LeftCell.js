@@ -10,11 +10,7 @@ class LeftCell extends Component {
     render() {
         let tv = [];
         for(var i = 0;i<3;i++){
-            if(this.props.data.customer.metricsProfileHistory.items[0].value.gv > -1){
-                tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.gv);
-            }else{
-                tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.tv);
-            }
+            tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.tv);
         }
         let showItems = true;
         let shorter = this.props.data.customer.metricsProfileHistory.items;
@@ -31,6 +27,15 @@ class LeftCell extends Component {
         if(this.props.last){
             lastCSS = "lastCSS";
         }
+        let name = this.props.data.customer.humanName.fullName;
+        if(this.props.language.language === "TH"){
+            if(this.props.data.customer.humanName['fullName@th']){
+                name = this.props.data.customer.humanName['fullName@th']
+            }
+        }
+        if(this.props.data.customer.nickName){
+            name = this.props.data.customer.nickName;
+        }
         return (
             showItems &&
             <div className={"row no-padding no-margin left-cell-row "+lastCSS}>
@@ -39,9 +44,9 @@ class LeftCell extends Component {
                         <div className="vertical-mid">{this.props.data.treeDepth}</div>
                     </div>
                 </div>
-                <div className="col-8 no-padding overscroll">
+                <div onClick={()=>this.props.openModal(this.props.data.customer.href,this.props.data.customer)} className="col-8 no-padding overscroll">
                     <div className="left-cell lvl-cell">
-                        <div className="vertical-mid">{this.props.data.customer.humanName.fullName}</div>
+                        <div className="vertical-mid">{name}</div>
                     </div>
                 </div>
             </div>

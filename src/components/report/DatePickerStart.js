@@ -6,7 +6,18 @@ const toMonth = new Date(currentYear + 20, 11);
 
 // Component will receive date, locale and localeUtils props
 export function StartYearMonthForm({ date, localeUtils, onChange }) {
-  const months = localeUtils.getMonths();
+  var months = [];
+  for(var i = 0;i<12;i++){
+    let month = i;
+    if(month < 10){
+      month = '0'+month;
+    }
+    if(month === '00'){
+      month = '01';
+    }
+    let momentMonth = '2017-'+month+'-01';
+    months[i] = moment(momentMonth).format('MMMM')
+  }
 
   const years = [];
   for (let i = StartFromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {

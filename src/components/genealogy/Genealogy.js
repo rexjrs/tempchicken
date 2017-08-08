@@ -4,6 +4,9 @@ import { rankListOrdered } from '../GlobalHelpers';
 import LeftCell from './LeftCell';
 import Table from './Table';
 import Spinner from '../Spinner';
+import Modal from './Modal';
+import Bookmarks from './Bookmarks';
+import Details from './Details';
 
 class Genealogy extends Component {
     constructor(props) {
@@ -11,6 +14,7 @@ class Genealogy extends Component {
         this.state = {
             level: 1,
             dataSource: [],
+            favoriteList: [],
             loading: true,
             maxWidth: null,
             column: "col-8",
@@ -21,7 +25,12 @@ class Genealogy extends Component {
             inProgress: false,
             orderType: 'asc',
             sortType: 'id',
-            showAll: true
+            showAll: true,
+            modalOpen: false,
+            hrefHistory: [],
+            bookMarkOpen: false,
+            detailsOpen: false,
+            detailsData: null
         };
         this.handleScroll = this.handleScroll.bind(this);
     }
@@ -54,6 +63,14 @@ class Genealogy extends Component {
             orderType = overRideType;
         }
         let tempArray = this.state.dataSource;
+        for(var i in tempArray){
+            let tem = tempArray[i].customer.metricsProfileHistory;
+            for(var e in tem.items){
+                if(tem.items[e].value.gv > -1){
+                    tem.items[e].value.tv = tem.items[e].value.gv;
+                }
+            }
+        }
         if(type === "id"){
             sortType = 'id';
             tempArray.sort(function(a, b) {
@@ -85,28 +102,10 @@ class Genealogy extends Component {
             type = type.substr(0,2);
             sortType = type+numeric
             tempArray.sort(function(a, b) {
-                let tempTypeB = type;
-                let tempTypeA = type;
                 if(orderType === "desc"){
-                    if(type === "tv"){
-                        if(b.customer.metricsProfileHistory.items[numeric].value.gv > -1){
-                            tempTypeB = "gv"
-                        }
-                        if(a.customer.metricsProfileHistory.items[numeric].value.gv > -1){
-                            tempTypeA = "gv"
-                        }
-                    }
-                    return b.customer.metricsProfileHistory.items[numeric].value[tempTypeB] - a.customer.metricsProfileHistory.items[numeric].value[tempTypeA];
+                    return b.customer.metricsProfileHistory.items[numeric].value[type] - a.customer.metricsProfileHistory.items[numeric].value[type];
                 }else{
-                    if(type === "tv"){
-                        if(b.customer.metricsProfileHistory.items[numeric].value.gv > -1){
-                            tempTypeB = "gv"
-                        }
-                        if(a.customer.metricsProfileHistory.items[numeric].value.gv > -1){
-                            tempTypeA = "gv"
-                        }
-                    }
-                    return a.customer.metricsProfileHistory.items[numeric].value[tempTypeA] - b.customer.metricsProfileHistory.items[numeric].value[tempTypeB];
+                    return a.customer.metricsProfileHistory.items[numeric].value[type] - b.customer.metricsProfileHistory.items[numeric].value[type];
                 }
             });
         }      
@@ -141,7 +140,9 @@ class Genealogy extends Component {
 
     fetchGenealogy(href,extraPage){
         this.setState({inProgress: true})
-        href = localStorage.getItem('customerHref');
+        if(!href){
+            href = localStorage.getItem('customerHref');
+        }
         href = href.replace("https://hydra.unicity.net/", "https://member-calls.unicity.com/");
         if(!extraPage){
             this.setState({loading: true})
@@ -158,6 +159,7 @@ class Genealogy extends Component {
                     });
                     this.setState({
                         originalData: JSON.parse(JSON.stringify(res.items)),
+                        favoriteList: JSON.parse(JSON.stringify(res.favorites)),
                         originalNext: res.next,
                         dataSource: res.items,
                         loading: false,
@@ -210,6 +212,76 @@ class Genealogy extends Component {
         });
     }
 
+    openModal(href,data){
+        this.setState({
+            modalOpen: true,
+            nextHref: href,
+            detailsData: data
+        });
+    }
+
+    openDetails(){
+        this.setState({
+            detailsOpen: true
+        });
+    }
+
+    hideDetails(){
+        this.setState({
+            detailsOpen: false
+        });
+    }
+
+    hideModal(){
+        this.setState({
+            modalOpen: false
+        });
+    }
+
+    hideBookmark(){
+        this.setState({
+            bookMarkOpen: false
+        });
+    }
+
+    setNextHref(href){
+        this.setState({
+            nextHref: href
+        },this.digDown)
+    }
+
+    digDown(){
+        let found = false;
+        this.state.hrefHistory.map((b,i)=>{
+            if(b === this.state.nextHref){
+                found = true;
+            }else{
+                found = false;
+            }
+            return false;
+        });
+        let newHref = this.state.hrefHistory;
+        if(!found){
+            if(this.state.nextHref !== localStorage.getItem('customerHref')){
+                newHref = this.state.hrefHistory.concat([this.state.nextHref]);
+            }
+        }
+        this.setState({
+            modalOpen: false,
+            hrefHistory: newHref
+        });
+        this.fetchGenealogy(this.state.nextHref);
+    }
+
+    backHistory(){
+        this.fetchGenealogy(this.state.hrefHistory[this.state.hrefHistory.length-2]);
+        let newHref = this.state.hrefHistory;
+        newHref.pop();
+        this.setState({
+            hrefHistory: newHref
+        });
+    }
+
     render() {
         var leftSide = this.state.dataSource.map((b,i)=>{
             let last = false;
@@ -217,7 +289,7 @@ class Genealogy extends Component {
                 last = true;
             }
             return(
-                <LeftCell key={i} showAll={this.state.showAll} last={last} data={b}/>
+                <LeftCell key={i} language={this.props.language} openModal={this.openModal.bind(this)} showAll={this.state.showAll} last={last} data={b}/>
             )
         });
         let levels = [];
@@ -236,9 +308,9 @@ class Genealogy extends Component {
                     }
                 case 1:
                     if(!this.state.showAll){
-                        return 'global-connected-button-middle global-connected-button-active'
+                        return 'global-connected-button-right global-connected-button-active'
                     }else{
-                        return 'global-connected-button-middle'
+                        return 'global-connected-button-right'
                     }
                 default:
             }
@@ -252,17 +324,28 @@ class Genealogy extends Component {
                 {!this.state.loading &&
                 <div>
                     <div className="row no-margin">
-                        <div className="col-6 no-padding">
+                        <div className="col-4 no-padding">
                             <div className="genealogy-select-container">
-                                <p className="no-margin select-level-text">Select Level:</p>
+                                <p className="no-margin select-level-text">{this.props.language.select_level}:</p>
                                 <select className="genealogy-select" value={this.state.level} onChange={(event)=>this.changeLevel(event)}>
                                     {levels}
                                 </select>
                             </div>
                         </div>
+                        <div className="col-8 no-padding text-right">
+                            <button onClick={()=>this.setState({showAll: true})} className={this.showAllActive(0)}>{this.props.language.show_all}</button>
+                            <button onClick={()=>this.setState({showAll: false})} className={this.showAllActive(1)}>{this.props.language.show_less}</button>
+                        </div>
+                    </div>
+                    <br/>
+                    <div className="row no-margin">
+                        <div className="col-6 no-padding">
+                            {this.state.hrefHistory.length > 0 &&
+                            <button onClick={this.backHistory.bind(this)} className="global-button global-button-active">{this.props.language.back}</button>
+                            }
+                        </div>
                         <div className="col-6 no-padding text-right">
-                            <button onClick={()=>this.setState({showAll: true})} className={this.showAllActive(0)}>Show All</button>
-                            <button onClick={()=>this.setState({showAll: false})} className={this.showAllActive(1)}>Show Less</button>
+                            <button onClick={()=>this.setState({bookMarkOpen: true})} className="global-button global-button-active">{this.props.language.bookmarks}</button>
                         </div>
                     </div>
                     <br/>
@@ -279,14 +362,14 @@ class Genealogy extends Component {
                                 </div>
                                 <div className={this.state.column+" no-padding"}>
                                     <div className="left-cell lvl-cell">
-                                        <div className="vertical-mid left-cell-font">Name</div>
+                                        <div className="vertical-mid left-cell-font">{this.props.language.name}</div>
                                     </div>
                                 </div>
                             </div>
                             { leftSide }
                         </div>
                         <div className={this.state.column+" "+this.state.columnSm+" no-padding genealogy-table-col"}>
-                            <Table showAll={this.state.showAll} orderType={this.state.orderType} sortType={this.state.sortType} sortData={this.sortData.bind(this)} hide={this.state.hide} showSide={this.showSide.bind(this)} dataSource={this.state.dataSource}/>
+                            <Table language={this.props.language} showAll={this.state.showAll} orderType={this.state.orderType} sortType={this.state.sortType} sortData={this.sortData.bind(this)} hide={this.state.hide} showSide={this.showSide.bind(this)} dataSource={this.state.dataSource}/>
                         </div>
                     </div>
                     {this.state.inProgress &&
@@ -297,6 +380,9 @@ class Genealogy extends Component {
                     }
                 </div>
                 }
+                <Details detailsData={this.state.detailsData} hideDetails={this.hideDetails.bind(this)} language={this.props.language} detailsOpen={this.state.detailsOpen}/>
+                <Modal openDetails={this.openDetails.bind(this)} language={this.props.language} hideModal={this.hideModal.bind(this)} digDown={this.digDown.bind(this)} modalOpen={this.state.modalOpen}/>
+                <Bookmarks setNextHref={this.setNextHref.bind(this)} favoriteList={this.state.favoriteList} language={this.props.language} hideBookmark={this.hideBookmark.bind(this)} bookMarkOpen={this.state.bookMarkOpen}/>
             </div>
         );
     }

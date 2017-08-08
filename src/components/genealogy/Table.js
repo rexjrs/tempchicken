@@ -34,7 +34,7 @@ class Table extends Component {
                             }
                         </th>
                         <th onClick={()=>this.props.sortData('rank')}>
-                            Rank
+                            {this.props.language.title_rank}
                             {this.props.sortType === "rank" &&
                                 <i className={"fa "+(this.props.orderType === "asc" ? 'fa-chevron-up' : 'fa-chevron-down')} aria-hidden="true" style={{fontSize: 8}}></i>
                             }

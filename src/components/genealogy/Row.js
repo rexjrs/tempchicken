@@ -10,11 +10,7 @@ class LeftCell extends Component {
     render() {
         let tv = [];
         for(var i = 0;i<3;i++){
-            if(this.props.data.customer.metricsProfileHistory.items[0].value.gv > -1){
-                tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.gv);
-            }else{
-                tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.tv);
-            }
+            tv.push(this.props.data.customer.metricsProfileHistory.items[i].value.tv);
         }
         let showItems = true;
         let shorter = this.props.data.customer.metricsProfileHistory.items;

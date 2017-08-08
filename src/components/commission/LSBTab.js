@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-=======
-import { serviceGetNews } from '../../services/Network';
 import $ from 'jquery';
 import Spinner from '../Spinner';
->>>>>>> origin/commission
 
 class LSBTab extends Component {
     constructor(props) {
@@ -27,21 +23,19 @@ class LSBTab extends Component {
 
 
         var customer_href = localStorage.getItem("customerHref");
-        var customer_href = customer_href.replace("https://hydra.unicity.net", 'https://member-calls.unicity.com');
+        customer_href = customer_href.replace("https://hydra.unicity.net", 'https://member-calls.unicity.com');
         let url = customer_href + "/lsb";
 
         $.ajax({
             'type': 'GET',
             'url': url,
             'success': function (result) {
-                console.log(result)
                 that.props.setDataLSB(result)
                 that.setState({
                     isLoadingLSB: false
                 })
             },
             'error': function (result) {
-                console.log("ERROR" + result)
             }
         })
     }
@@ -49,7 +43,6 @@ class LSBTab extends Component {
     render() {
         let dataTable, entrys = null;
         if (this.props.LSBData.items) {
-            console.log(this.props.LSBData.items)
             dataTable = this.props.LSBData.items.map((b, i) => {
                 entrys = b.entry.map((c, j) => {
                     return (
@@ -103,7 +96,10 @@ class LSBTab extends Component {
 
             <div >
                 {this.state.isLoadingLSB &&
-                    <Spinner />
+                    <div>
+                        <br/>
+                        <Spinner />
+                    </div>
                 }
                 {!this.state.isLoadingLSB &&
                     <div style={{ marginTop: 20 }}>

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-=======
 import { getPeriod } from '../../services/Network';
 import $ from 'jquery';
 import { marketZone } from '../GlobalHelpers';
 import moment from 'moment';
 import Spinner from '../Spinner';
->>>>>>> origin/commission
 
 class CommissionTab extends Component {
     constructor(props) {
@@ -27,8 +24,6 @@ class CommissionTab extends Component {
     openStateMent() {
         var thisYear = moment(new Date()).format('YYYY');
         var mounthSelect = moment(this.state.selectedMonth).format('MM');
-        console.log(thisYear);
-        console.log(moment(this.state.selectedMonth).format('MM'))
         let customer_heaf = localStorage.getItem("customerHref").replace("https://hydra.unicity.net/v5/", "https://thdl1.unicity-easynet.com/v5/");
         var urlToOpentStateMent = customer_heaf + "?year=" + thisYear + "&month=" + mounthSelect + "&country=" + marketZone;
         this.setState({ linkStatememt: urlToOpentStateMent })
@@ -51,7 +46,6 @@ class CommissionTab extends Component {
                 }, that.test)
             },
             'error': function (result) {
-                console.log("ERROR" + result)
             }
         })
     }
@@ -59,7 +53,6 @@ class CommissionTab extends Component {
         this.setState({
             selectedMonth: value
         }, this.openStateMent.bind(this))
-        console.log(this.state.selectedMonth)
     }
     getPeriodOptions() {
         getPeriod(((res, status) => {
@@ -77,10 +70,6 @@ class CommissionTab extends Component {
                 // this.setState({ noDataMsg: true })
             }
         }), this.props.customerData.unicity, marketZone);
-    }
-
-    test() {
-        console.log(this.state)
     }
 
     render() {
@@ -110,7 +99,10 @@ class CommissionTab extends Component {
         return (
             <div>
                 {this.state.isLoadingCommission &&
-                    <Spinner />
+                    <div>
+                        <br/>
+                        <Spinner />
+                    </div>
                 }
                 {!this.state.isLoadingCommission &&
                     <div className="form-horizontal">
