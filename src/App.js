@@ -180,6 +180,7 @@ class App extends Component {
                             <Commission
                                 language={this.state.language}
                                 stateUpdate={this.stateUpdate.bind(this)}
+                                customerData={this.state.customerData}
                             />
                         }/>
                         <Route exact path={appConfig.appPath+"/news"} render={()=>

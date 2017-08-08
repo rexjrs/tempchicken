@@ -53,6 +53,7 @@ class ReportTab extends Component {
                     tempArray.push(combined)
                     return false;
                 });
+                 console.log(tempArray)
                 this.setState({ selectMonth: tempArray, noDataMsg: false, noData: false, selectedMonth: tempArray[0], originalNoData: false });
             } else {
                 this.setState({ noDataMsg: true })
