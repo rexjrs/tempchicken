@@ -165,11 +165,15 @@ class GenealogyComponent extends Component {
             href = localStorage.getItem('customerHref');
         }
         let levelSelected = this.state.level;
+        let legPeriod = 1;
+        if(this.props.metricPeriod > -1){
+            legPeriod = this.props.metricPeriod;
+        }
         if(isNaN(levelSelected)){
             if(this.state.level === "Leg 1"){
-                href = this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg1.customers[0].customer.href;
+                href = this.props.customerData.achievementsHistory.items[legPeriod].metricsDetails.ov_leg1.customers[0].customer.href;
             }else if(this.state.level === "Leg 2"){
-                href = this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg2.customers[0].customer.href;
+                href = this.props.customerData.achievementsHistory.items[legPeriod].metricsDetails.ov_leg2.customers[0].customer.href;
             }else{
 
             }
@@ -354,7 +358,7 @@ class GenealogyComponent extends Component {
     render() {
         // (For Success page)
         let legPeriod = 1;
-        if(this.props.metricPeriod){
+        if(this.props.metricPeriod > -1){
             legPeriod = this.props.metricPeriod;
         }
         // LEG Sorting INFO
