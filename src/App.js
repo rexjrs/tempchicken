@@ -14,6 +14,7 @@ import SideBar from './components/SideBar';
 import Login from './components/login/Login';
 import Home from './components/home/Home';
 import Genealogy from './components/genealogy/Genealogy';
+import Success from './components/success/Success';
 import News from './components/news/News';
 import Media from './components/media/Media';
 import Feedback from './components/feedback/Feedback';
@@ -170,6 +171,14 @@ class App extends Component {
                         }/>
                         <Route exact path={appConfig.appPath+"/genealogy"} render={()=>
                             <Genealogy 
+                                language={this.state.language}
+                                searchStateArray={this.searchStateArray.bind(this)}
+                                stateUpdate={this.stateUpdate.bind(this)}
+                                customerData={this.state.customerData}
+                            />
+                        }/>
+                        <Route exact path={appConfig.appPath+"/success"} render={()=>
+                            <Success 
                                 language={this.state.language}
                                 searchStateArray={this.searchStateArray.bind(this)}
                                 stateUpdate={this.stateUpdate.bind(this)}

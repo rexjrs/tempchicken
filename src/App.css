@@ -389,7 +389,7 @@ button{
     min-height: 100vh;
     padding-left: 5px;
     padding-right: 5px;
-    background: #F2F2F2;
+    background: white;
 }
 .col-shadow{
     border-right: 1px solid #CCC;
@@ -482,13 +482,26 @@ button{
     border-bottom: 0px;
     height: 49px;
 }
+/*Success*/
+.success-progress-bar{
+    height: 20px;
+    border: 2px solid #CCC;
+    border-radius: 7px;
+}
+.success-progress-bar-inner{
+    height: 16px;
+    border-radius: 5px;
+    background-image: url(./assets/tab.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
 /*Report*/
 .report-user-view-table{
     width: 100%;
     border: 1px solid #CCC;
 }
 .report-user-view-table > thead{
-    background: #1459b5;
+    background: linear-gradient(rgb(4, 165, 234) 0%, rgb(4, 100, 157) 100%);
     color: white;
 }
 .report-user-view-table > tbody > tr{
@@ -759,15 +772,13 @@ table {
 
 /* LSB Tab */
 .col-head-title{
-    background-color: #013467;
+    background: linear-gradient(rgb(4, 165, 234) 0%, rgb(4, 100, 157) 100%);
     color: #FFFFFF;
-    
 }
 .row-col{
     font-size: 15;
     align-content: top;
 }
-
 .table-responsive {
     width: 100%;
     margin-bottom: 15px;

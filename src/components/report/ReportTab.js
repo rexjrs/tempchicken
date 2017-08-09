@@ -296,8 +296,8 @@ class ReportTab extends Component {
                                         <tr>
                                             <td></td>
                                             <td>
-                                                {!this.state.userData.sponsor && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
-                                                {this.state.userData.sponsor && <p className="no-margin">&nbsp;{this.state.userData.enroller.items[0].humanName.fullName}</p>}
+                                                {!this.state.userData.enroller && <p className="no-margin report-loading-data">&nbsp;Loading data..</p>}
+                                                {this.state.userData.enroller && <p className="no-margin">&nbsp;{this.state.userData.enroller.items[0].humanName.fullName}</p>}
                                             </td>
                                         </tr>
                                         <tr>
