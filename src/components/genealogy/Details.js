@@ -131,6 +131,7 @@ class Details extends Component {
                                                 }
                                             </td>
                                         </tr>
+                                        {!this.props.successPage &&
                                         <tr>
                                             <td>Bookmarked</td>
                                             <td>
@@ -142,6 +143,7 @@ class Details extends Component {
                                                 }
                                             </td>
                                         </tr>
+                                        }
                                         <tr>
                                             <td>Member ID</td>
                                             <td>{data.id.unicity}</td>

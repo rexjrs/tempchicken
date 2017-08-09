@@ -110,6 +110,8 @@ export var translationsEN = {
     preview_downline: "Preview Downline",
     dig_down: "Dig Down",
     leg: "Leg",
+    // Success
+    rank_achievements: "Rank Achievements",
     // Reports page
     start_date: "Start Date",
     end_date: "End Date",
@@ -201,6 +203,8 @@ export var translationsTH = {
     preview_downline: "ดูชั้นล่าง",
     dig_down: "ขุดลงชั้น",
     leg: "สายที่",
+    // Success
+    rank_achievements: "ตำแหน่ง",
     // Reports page
     start_date: "เลือกเดือน",
     end_date: "ถึง",
