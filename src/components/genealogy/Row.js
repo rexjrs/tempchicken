@@ -26,9 +26,9 @@ class LeftCell extends Component {
         return (
             showItems &&
             <tr>
-                <td>{this.props.data.customer.id.unicity}</td>
-                <td>{this.props.data.customer.cumulativeMetricsProfile.highestRankShort}</td>
-                <td>{this.props.data.customer.FSB === "VIP" && <i className="fa fa-check-square-o" aria-hidden="true"></i>}</td>
+                <td hidden={this.props.hide}>{this.props.data.customer.id.unicity}</td>
+                <td hidden={this.props.hide}>{this.props.data.customer.cumulativeMetricsProfile.highestRankShort}</td>
+                <td hidden={this.props.hide}>{this.props.data.customer.FSB === "VIP" && <i className="fa fa-check" aria-hidden="true"></i>}</td>
                 <td>{this.props.data.customer.metricsProfileHistory.items[0].value.pv}</td>
                 <td>{tv[0]}</td>
                 <td>{this.props.data.customer.metricsProfileHistory.items[0].value.ov}</td>

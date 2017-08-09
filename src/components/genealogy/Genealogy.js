@@ -24,7 +24,7 @@ class Genealogy extends Component {
             prev: null,
             inProgress: false,
             orderType: 'asc',
-            sortType: 'id',
+            sortType: 'no-sort',
             showAll: true,
             modalOpen: false,
             hrefHistory: [],
@@ -52,6 +52,9 @@ class Genealogy extends Component {
     }
 
     sortData(type,numeric,overRideType){
+        if(this.state.level > 1){
+            return false;
+        }
         let orderType;
         let sortType;
         if(this.state.orderType === "desc"){
@@ -80,6 +83,11 @@ class Genealogy extends Component {
                     return a.customer.id.unicity - b.customer.id.unicity;
                 }
             });
+        }else if(type === "reset"){
+            sortType = "reset";
+            tempArray = JSON.parse(JSON.stringify(this.state.originalData));
+        }else if(type === "no-sort"){
+            sortType = "no-sort";
         }else if(type === "rank"){
             sortType = 'rank';
             tempArray.sort(function(a, b) {
@@ -138,10 +146,28 @@ class Genealogy extends Component {
         }
     }
 
+    resetTable(){
+        this.setState({
+            hrefHistory: []
+        });
+        this.fetchGenealogy();
+    }
+
     fetchGenealogy(href,extraPage){
         this.setState({inProgress: true})
         if(!href){
             href = localStorage.getItem('customerHref');
+        }
+        let levelSelected = this.state.level;
+        if(isNaN(levelSelected)){
+            if(this.state.level === "Leg 1"){
+                href = this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg1.customers[0].customer.href;
+            }else if(this.state.level === "Leg 2"){
+                href = this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg2.customers[0].customer.href;
+            }else{
+
+            }
+            levelSelected = 1;
         }
         href = href.replace("https://hydra.unicity.net/", "https://member-calls.unicity.com/");
         if(!extraPage){
@@ -167,7 +193,7 @@ class Genealogy extends Component {
                         inProgress: false
                     },this.sortDataCallback);
                 }
-            },href,this.state.level,100,localStorage.getItem('customerToken'));
+            },href,levelSelected,100,localStorage.getItem('customerToken'));
         }else{
             hydraRequestByUrl((res,status)=>{
                 let tempArray = this.state.dataSource;
@@ -192,23 +218,19 @@ class Genealogy extends Component {
 
     changeLevel(event){
         this.setState({
-            level: event.target.value
+            level: event.target.value,
         },this.fetchGenealogy)
     }
 
     hideSide(){
         this.setState({
-            hide: true,
-            column: "col-12",
-            columnSm: "col-sm-12"
+            hide: !this.state.hide
         });
     }
 
     showSide(){
         this.setState({
-            hide: false,
-            column: "col-8",
-            columnSm: "col-sm-9"
+            hide: false
         });
     }
 
@@ -282,22 +304,97 @@ class Genealogy extends Component {
         });
     }
 
+    favSet(id,data){
+        let favoriteList = JSON.parse(JSON.stringify(this.state.favoriteList));
+        if(!data){
+            favoriteList.map((b,i)=>{
+                if(b.customer.unicity === id){
+                    favoriteList.splice(i,1);
+                }
+                return false;
+            });
+        }else{
+            favoriteList.push({customer:data})
+        }
+        this.setState({
+            favoriteList: favoriteList
+        })
+    }
+
+    changeName(id,name){
+        let tempArray = JSON.parse(JSON.stringify(this.state.dataSource));
+        let favoriteList = JSON.parse(JSON.stringify(this.state.favoriteList));
+        let detailsData = JSON.parse(JSON.stringify(this.state.detailsData));
+        tempArray.map((b,i)=>{
+            if(b.customer.unicity === id){
+                b.customer.nickName = name;
+            }
+            return false;
+        });
+        favoriteList.map((b,i)=>{
+            if(b.customer.unicity === id){
+                b.customer.nickName = name;
+            }
+            return false;
+        });
+        detailsData.nickName = name;
+        this.setState({
+            dataSource: tempArray,
+            detailsData: detailsData,
+            favoriteList: favoriteList
+        });
+    }
+
     render() {
+        // LEG Sorting INFO
+        var removeLeg = [null,null,null];
+        if(this.state.level === "Leg 3"){
+            if(this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg1.customers[0] !== undefined){
+                removeLeg[0] = this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg1.customers[0].customer.id.unicity;
+            }else{
+                removeLeg[0] = null;
+            }
+            if(this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg2.customers[0] !== undefined){
+                removeLeg[1] = this.props.customerData.achievementsHistory.items[1].metricsDetails.ov_leg2.customers[0].customer.id.unicity;
+            }else{
+                removeLeg[1] = null;
+            }
+            removeLeg[2] = this.props.customerData.id.unicity;
+        }
+        var aptCheck = this.props.customerData.achievementsHistory.items;
+        for(var e in aptCheck){
+            if(aptCheck[e].metricsDetails.apt){
+                if(aptCheck[e].metricsDetails.apt.customers[0].customer.id.unicity){
+                    removeLeg[3] = aptCheck[e].metricsDetails.apt.customers[0].customer.id.unicity;
+                }
+            }
+        }
+        // Left Cells LVL/Names
         var leftSide = this.state.dataSource.map((b,i)=>{
             let last = false;
             if(i === this.state.dataSource.length-1){
                 last = true;
             }
             return(
-                <LeftCell key={i} language={this.props.language} openModal={this.openModal.bind(this)} showAll={this.state.showAll} last={last} data={b}/>
+                <LeftCell key={i} removeLeg={removeLeg} language={this.props.language} openModal={this.openModal.bind(this)} showAll={this.state.showAll} last={last} data={b}/>
             )
         });
+        // Level Selection
         let levels = [];
         for (var i = 1; i < 13; i++) {
             levels.push(
                 <option key={i} value={i}>{i}</option>
             );
         }
+        levels.push(
+            <option key="leg_1" value="Leg 1">{this.props.language.leg} 1</option>
+        )
+        levels.push(
+            <option key="leg_2" value="Leg 2">{this.props.language.leg} 2</option>
+        )
+        levels.push(
+            <option key="leg_3" value="Leg 3">{this.props.language.leg} 3</option>
+        )
         this.showAllActive = (value) => {
             switch(value){
                 case 0:
@@ -339,28 +436,34 @@ class Genealogy extends Component {
                     </div>
                     <br/>
                     <div className="row no-margin">
-                        <div className="col-6 no-padding">
+                        <div className="col-4 no-padding">
                             {this.state.hrefHistory.length > 0 &&
                             <button onClick={this.backHistory.bind(this)} className="global-button global-button-active">{this.props.language.back}</button>
                             }
                         </div>
-                        <div className="col-6 no-padding text-right">
+                        <div className="col-8 no-padding text-right">
+                            <button onClick={()=>this.resetTable()} className="global-button global-button-active refreshBtn">{this.props.language.reset}</button>
                             <button onClick={()=>this.setState({bookMarkOpen: true})} className="global-button global-button-active">{this.props.language.bookmarks}</button>
                         </div>
                     </div>
                     <br/>
                     <div className="row main-row">
-                        <div className="col-4 col-sm-3 no-padding col-shadow" hidden={this.state.hide}>
+                        <div className="col-4 col-sm-3 no-padding col-shadow">
                             <div className="row no-padding no-margin cool-background hide-box">
+                                {!this.state.hide &&
                                 <i onClick={this.hideSide.bind(this)} className="fa fa-angle-double-left hide-box-inner" aria-hidden="true"></i>
+                                }
+                                {this.state.hide &&
+                                <i onClick={this.hideSide.bind(this)} className="fa fa-angle-double-right hide-box-inner" aria-hidden="true"></i>
+                                }
                             </div>
                             <div className="row no-padding no-margin cool-background">
-                                <div className="col-4 no-padding">
+                                <div onClick={()=>this.sortData('reset')} className="col-4 no-padding">
                                     <div className="left-cell lvl-cell">
                                         <div className="vertical-mid left-cell-font">LVL</div>
                                     </div>
                                 </div>
-                                <div className={this.state.column+" no-padding"}>
+                                <div className="col-8 no-padding">
                                     <div className="left-cell lvl-cell">
                                         <div className="vertical-mid left-cell-font">{this.props.language.name}</div>
                                     </div>
@@ -368,8 +471,8 @@ class Genealogy extends Component {
                             </div>
                             { leftSide }
                         </div>
-                        <div className={this.state.column+" "+this.state.columnSm+" no-padding genealogy-table-col"}>
-                            <Table language={this.props.language} showAll={this.state.showAll} orderType={this.state.orderType} sortType={this.state.sortType} sortData={this.sortData.bind(this)} hide={this.state.hide} showSide={this.showSide.bind(this)} dataSource={this.state.dataSource}/>
+                        <div className={"col-8 col-sm-9 no-padding genealogy-table-col"}>
+                            <Table removeLeg={removeLeg} language={this.props.language} showAll={this.state.showAll} orderType={this.state.orderType} sortType={this.state.sortType} sortData={this.sortData.bind(this)} hide={this.state.hide} showSide={this.showSide.bind(this)} dataSource={this.state.dataSource}/>
                         </div>
                     </div>
                     {this.state.inProgress &&
@@ -380,7 +483,7 @@ class Genealogy extends Component {
                     }
                 </div>
                 }
-                <Details detailsData={this.state.detailsData} hideDetails={this.hideDetails.bind(this)} language={this.props.language} detailsOpen={this.state.detailsOpen}/>
+                <Details favSet={this.favSet.bind(this)} favoriteList={this.state.favoriteList} changeName={this.changeName.bind(this)} detailsData={this.state.detailsData} hideDetails={this.hideDetails.bind(this)} language={this.props.language} detailsOpen={this.state.detailsOpen}/>
                 <Modal openDetails={this.openDetails.bind(this)} language={this.props.language} hideModal={this.hideModal.bind(this)} digDown={this.digDown.bind(this)} modalOpen={this.state.modalOpen}/>
                 <Bookmarks setNextHref={this.setNextHref.bind(this)} favoriteList={this.state.favoriteList} language={this.props.language} hideBookmark={this.hideBookmark.bind(this)} bookMarkOpen={this.state.bookMarkOpen}/>
             </div>

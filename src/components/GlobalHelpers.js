@@ -1,4 +1,5 @@
 export var apiURL = {
+    hydraStandard: "https://hydra.unicity.net/v5",
     loginTokens: "https://hydra.unicity.net/v5/loginTokens",
     getNews: "https://member-th.unicity.com/cpanel/wp-admin/admin-ajax.php?action=unimobiapp_get_news&args[posts_per_page]=-1",
     getMedia: "https://member-th.unicity.com/cpanel/wp-admin/admin-ajax.php?action=unimobiapp_get_prospect",
@@ -80,6 +81,7 @@ export var translationsEN = {
     currency: "THB",
     back: "Back",
     cancel: "Cancel",
+    reset: "Reset",
     // Login page
     username: "Username",
     password: "Password",
@@ -107,6 +109,7 @@ export var translationsEN = {
     view_ba: "View BA",
     preview_downline: "Preview Downline",
     dig_down: "Dig Down",
+    leg: "Leg",
     // Reports page
     start_date: "Start Date",
     end_date: "End Date",
@@ -169,6 +172,7 @@ export var translationsTH = {
     currency: "THB",
     back: "กลับ",
     cancel: "ยกเลิก",
+    reset: "รีเซ็ต",
     // Login page
     username: "หมายเลขนักธุรกิจอิสระ",
     password: "รหัสผ่าน",
@@ -196,6 +200,7 @@ export var translationsTH = {
     view_ba: "รายละเอียด BA",
     preview_downline: "ดูชั้นล่าง",
     dig_down: "ขุดลงชั้น",
+    leg: "สายที่",
     // Reports page
     start_date: "เลือกเดือน",
     end_date: "ถึง",

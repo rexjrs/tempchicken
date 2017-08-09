@@ -281,6 +281,14 @@ button{
     }
 }
 /*Genealogy*/
+@media screen and (min-width: 460px) {
+    .genealogy-option-modal-top{
+        height: 35vh !important;
+    }
+    .genealogy-option-modal-bottom{
+        height: 65vh !important;
+    }
+}
 .genealogy-modal-button{
     width: 60vw;
     margin-bottom: 5px;
@@ -303,9 +311,27 @@ button{
     z-index: 3;
     left: 0;
 }
+.detail-star-empty{
+    font-size: 17px;
+}
+.detail-star{
+    font-size: 17px;
+    color: gold;
+}
+.refreshBtn{
+    margin-right: 10px;
+}
+.detail-save-btn{
+    display: inline;
+    padding: 10px;
+    color: #0000FF;
+}
 .bookmark-cells{
     color: #0000FF;
     margin-left: 15px;
+}
+.left-name{
+    color: #0000FF;
 }
 .genealogy-bookmark-modal-bottom{
     overflow: scroll;

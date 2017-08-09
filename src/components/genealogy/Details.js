@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hydraRequestByUrlPost, deleteNickName } from '../../services/Network';
 import moment from 'moment';
 
 class Details extends Component {
@@ -7,14 +8,26 @@ class Details extends Component {
         this.state = {
             hide: "hide",
             animate: "slideInUp",
-            detailsOpen: false
+            detailsOpen: false,
+            nickName: "",
+            disabled: true
         };
     }
+    
 
     componentWillReceiveProps(nextProps){
         if(nextProps.detailsOpen !== this.state.detailsOpen){
             if(nextProps.detailsOpen){
                 this.openModal();
+                if(nextProps.detailsData.nickName){
+                    this.setState({
+                        nickName: nextProps.detailsData.nickName
+                    });
+                }else{
+                    this.setState({
+                        nickName: ""
+                    });
+                }
             }else{
                 this.closeModal();
             }
@@ -31,10 +44,50 @@ class Details extends Component {
         this.setState({ animate: "slideOutDown" });
     }
 
+    changeName(){
+        if(this.state.nickName !== this.props.detailsData.nickName){
+            this.setState({
+                disabled: true
+            });
+            if(this.state.nickName === ""){
+                deleteNickName((res,status)=>{
+                },localStorage.getItem('customerHref')+'/customersTree?unicity='+this.props.detailsData.id.unicity,localStorage.getItem('customerToken'));
+                return false;
+            }
+            let data = {
+                unicity: this.props.detailsData.id.unicity,
+                nickName: this.state.nickName
+            }
+            hydraRequestByUrlPost((res,status)=>{
+            },localStorage.getItem('customerToken'),localStorage.getItem('customerHref')+'/customersTree',JSON.stringify(data));
+            this.props.changeName(this.props.detailsData.unicity,this.state.nickName)
+        }
+    }
+
+    setFav(){
+        let data = {
+            unicity: this.props.detailsData.id.unicity,
+            favorite: 'Favorite'
+        }
+        hydraRequestByUrlPost((res,status)=>{
+        },localStorage.getItem('customerToken'),localStorage.getItem('customerHref')+'/customersTree',JSON.stringify(data));
+        this.props.favSet(this.props.detailsData.id.unicity,this.props.detailsData)
+    }
+
+    unsetFav(){
+        let data = {
+            unicity: this.props.detailsData.id.unicity,
+            favorite: 'Un-Favorite'
+        }
+        hydraRequestByUrlPost((res,status)=>{
+        },localStorage.getItem('customerToken'),localStorage.getItem('customerHref')+'/customersTree',JSON.stringify(data));
+        this.props.favSet(this.props.detailsData.id.unicity);
+    }
+
     render() {
         let data = this.props.detailsData;
-        console.log(data)
         let name;
+        let foundFav = false;
         if(data){
             name = data.humanName.fullName;
             if(this.props.language.language === "TH"){
@@ -42,6 +95,12 @@ class Details extends Component {
                     name = data.humanName['fullName@th']
                 }
             }
+            this.props.favoriteList.map((b,i)=>{
+                if(b.customer.unicity === this.props.detailsData.id.unicity){
+                    foundFav = true;
+                }
+                return false;
+            });
         }
         return (
             data &&
@@ -63,7 +122,24 @@ class Details extends Component {
                                         <tr>
                                             <td>Nick Name</td>
                                             <td>
-                                                {data.nickName}
+                                                <input disabled={this.state.disabled} value={this.state.nickName} onChange={(event)=>this.setState({nickName: event.target.value})}/>
+                                                {!this.state.disabled &&
+                                                <p onClick={this.changeName.bind(this)} className="no-margin detail-save-btn">Save</p>
+                                                }
+                                                {this.state.disabled &&
+                                                <p onClick={()=>this.setState({disabled: false})} className="no-margin detail-save-btn">Edit</p>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bookmarked</td>
+                                            <td>
+                                                {!foundFav &&
+                                                <i onClick={this.setFav.bind(this)} className="fa fa-star-o detail-star-empty" aria-hidden="true"></i>
+                                                }
+                                                {foundFav &&
+                                                <i onClick={this.unsetFav.bind(this)} className="fa fa-star detail-star" aria-hidden="true"></i>
+                                                }
                                             </td>
                                         </tr>
                                         <tr>
@@ -72,9 +148,16 @@ class Details extends Component {
                                         </tr>
                                         <tr>
                                             <td>VIP Code</td>
+                                            {data.FSB &&
                                             <td>
                                                 {data.FSB}
                                             </td>
+                                            }
+                                            {!data.FSB &&
+                                            <td>
+                                                None
+                                            </td>
+                                            }
                                         </tr>
                                         <tr>
                                             <td>Email</td>

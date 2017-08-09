@@ -1,6 +1,20 @@
 import $ from 'jquery';
 import { apiURL, apiHEADER, marketZone } from '../components/GlobalHelpers';
 
+export function deleteNickName(callback,url,token){
+    $.ajax({
+        'type':'DELETE',
+        'url': url,
+        'headers':{'Content-Type':'application/json','Authorization':'Bearer ' + token},
+        'success':function (result) {
+            callback(result,true)
+        },
+        'error':function (result) {
+            callback(result,false)
+        }
+    });
+}
+
 export function getGenealogy(callback,href,level,limit,token){
     let url = href+'/sponsoredCustomersTreePreOrder?maxTreeDepth='+level+'&limit='+limit+'&country='+marketZone+'&expand=self&_httpHeaderAuthorization=Bearer%20'+token;
     $.ajax({
@@ -47,6 +61,22 @@ export function hydraRequestByUrl(callback,token,url){
         'type':'GET',
         'headers' : {'Authorization' : 'Bearer ' + token},
         'url': url,
+        'success':function (result) {
+            callback(result,true)
+        },
+        'error':function (result) {
+            callback(result,false)
+        }
+    });
+}
+
+
+export function hydraRequestByUrlPost(callback,token,url,data){
+    $.ajax({
+        'type':'POST',
+        'headers':{'Content-Type':'application/json','Authorization':'Bearer ' + token},
+        'url': url,
+        'data': data,
         'success':function (result) {
             callback(result,true)
         },

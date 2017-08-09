@@ -10,16 +10,23 @@ class Table extends Component {
 
     render() {
         var row = this.props.dataSource.map((b,i)=>{
+            let noRemove = true;
+            this.props.removeLeg.map((f,e)=>{
+                if(f === b.customer.id.unicity){
+                    noRemove = false;
+                }
+                return false;
+            })
             return(
-                <Row key={i} showAll={this.props.showAll} data={b}/>
+                noRemove &&
+                <Row key={i} showAll={this.props.showAll} hide={this.props.hide} data={b}/>
             )
         });
         return (
             <table className="genealogy-table">
                 <thead>
                     <tr>
-                        <th className="top-thead" colSpan={3} style={{paddingLeft: 20}}>
-                            <i onClick={()=>this.props.showSide()} className="fa fa-angle-double-right hide-box-inner" hidden={!this.props.hide} aria-hidden="true"></i>
+                        <th className="top-thead" colSpan={3} style={{paddingLeft: 20}} hidden={this.props.hide}>
                         </th>
                         <th className="top-thead linearBG" colSpan={3}>2017-08</th>
                         <th className="top-thead linearBG" colSpan={3}>2017-07</th>
@@ -27,19 +34,19 @@ class Table extends Component {
 
                     </tr>
                     <tr>
-                        <th onClick={()=>this.props.sortData('id')}>
+                        <th onClick={()=>this.props.sortData('id')} hidden={this.props.hide}>
                             ID 
                             {this.props.sortType === "id" &&
                                 <i className={"fa "+(this.props.orderType === "asc" ? 'fa-chevron-up' : 'fa-chevron-down')} aria-hidden="true" style={{fontSize: 8}}></i>
                             }
                         </th>
-                        <th onClick={()=>this.props.sortData('rank')}>
+                        <th onClick={()=>this.props.sortData('rank')} hidden={this.props.hide}>
                             {this.props.language.title_rank}
                             {this.props.sortType === "rank" &&
                                 <i className={"fa "+(this.props.orderType === "asc" ? 'fa-chevron-up' : 'fa-chevron-down')} aria-hidden="true" style={{fontSize: 8}}></i>
                             }
                         </th>
-                        <th onClick={()=>this.props.sortData('fsb')}>
+                        <th onClick={()=>this.props.sortData('fsb')} hidden={this.props.hide}>
                             VIP
                             {this.props.sortType === "fsb" &&
                                 <i className={"fa "+(this.props.orderType === "asc" ? 'fa-chevron-up' : 'fa-chevron-down')} aria-hidden="true" style={{fontSize: 8}}></i>

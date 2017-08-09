@@ -8,6 +8,13 @@ class LeftCell extends Component {
     }
 
     render() {
+        let noRemove = true;
+        this.props.removeLeg.map((b,i)=>{
+            if(b === this.props.data.customer.id.unicity){
+                noRemove = false;
+            }
+            return false;
+        })
         let tv = [];
         for(var i = 0;i<3;i++){
             tv.push(this.props.data.customer.metricsProfileHistory.items[0].value.tv);
@@ -37,7 +44,7 @@ class LeftCell extends Component {
             name = this.props.data.customer.nickName;
         }
         return (
-            showItems &&
+            showItems && noRemove &&
             <div className={"row no-padding no-margin left-cell-row "+lastCSS}>
                 <div className="col-4 no-padding">
                     <div className="left-cell lvl-cell">
@@ -46,7 +53,7 @@ class LeftCell extends Component {
                 </div>
                 <div onClick={()=>this.props.openModal(this.props.data.customer.href,this.props.data.customer)} className="col-8 no-padding overscroll">
                     <div className="left-cell lvl-cell">
-                        <div className="vertical-mid">{name}</div>
+                        <div className="vertical-mid left-name">{name}</div>
                     </div>
                 </div>
             </div>

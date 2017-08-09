@@ -41,6 +41,9 @@ class Modal extends Component {
         this.props.openDetails();
     }
 
+                     //   <br/>
+                     //   <button className="global-button global-button-active genealogy-modal-button">{this.props.language.preview_downline}</button>
+
     render() {
         return (
             <div className={"genealogy-option-modal animated " + this.state.hide + ' ' + this.state.animate}>
@@ -53,8 +56,6 @@ class Modal extends Component {
                     </div>
                     <div className="text-center">
                         <button onClick={this.openDetails.bind(this)} className="global-button global-button-active genealogy-modal-button">{this.props.language.view_ba}</button>
-                        <br/>
-                        <button className="global-button global-button-active genealogy-modal-button">{this.props.language.preview_downline}</button>
                         <br/>
                         <button onClick={this.digDown.bind(this)} className="global-button global-button-active genealogy-modal-button">{this.props.language.dig_down}</button>
                     </div>
