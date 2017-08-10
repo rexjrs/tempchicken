@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { rankList } from '../GlobalHelpers';
+import { rankList, links } from '../GlobalHelpers';
 import moment from 'moment';
 import { serviceGetNews } from '../../services/Network';
 
@@ -127,16 +127,16 @@ class Home extends Component {
                 <br/>
                 <div className="row">
                     <div className="col">
-                        <img src="./assets/facebook.png" className="img-fluid home-social-media-pins" alt="social media pin"/>
+                        <a href={links.facebook} target="_blank"><img src="./assets/facebook.png" className="img-fluid home-social-media-pins" alt="social media pin"/></a>
                     </div>
                     <div className="col">
-                        <img src="./assets/line.png" className="img-fluid home-social-media-pins" alt="social media pin"/>
+                        <a href={links.line} target="_blank"><img src="./assets/line.png" className="img-fluid home-social-media-pins" alt="social media pin"/></a>
                     </div>
                     <div className="col">
-                        <img src="./assets/youtube.png" className="img-fluid home-social-media-pins" alt="social media pin"/>
+                        <a href={links.youtube} target="_blank"><img src="./assets/youtube.png" className="img-fluid home-social-media-pins" alt="social media pin"/></a>
                     </div>
                     <div className="col">
-                        <img src="./assets/instagram.png" className="img-fluid home-social-media-pins" alt="social media pin"/>
+                        <a href={links.instagram} target="_blank"><img src="./assets/instagram.png" className="img-fluid home-social-media-pins" alt="social media pin"/></a>
                     </div>
                 </div>
             </div>

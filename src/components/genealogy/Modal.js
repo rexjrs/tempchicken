@@ -36,7 +36,6 @@ class Modal extends Component {
     }
 
     openDetails(){
-        console.log('test')
         this.closeModal();
         this.props.openDetails();
     }

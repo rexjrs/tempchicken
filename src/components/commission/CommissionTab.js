@@ -107,7 +107,7 @@ class CommissionTab extends Component {
                 {!this.state.isLoadingCommission &&
                     <div className="form-horizontal">
                         <div className="">
-                            <p style={{ textAlign: 'center',marginTop:"10px",marginBottom:"6px" }}>Please select month</p>
+                            <p style={{ textAlign: 'center',marginTop:"10px",marginBottom:"6px" }}>{this.props.language.please_select_month}</p>
                             <select value={this.state.selectedMonth} 
                                 onChange={(event) => this.setState({ selectedMonth: event.target.value }, 
                                 this.setSelecyMounth.bind(this))} 
@@ -117,16 +117,16 @@ class CommissionTab extends Component {
 
                             </select>
                             <button className="global-button global-button-active close-modal-btn button-select">
-                                <a style={{ textDecoration: "none" ,color:"white"}} target="_blank" href={this.state.linkStatememt}>Open</a>
+                                <a style={{ textDecoration: "none" ,color:"white"}} target="_blank" href={this.state.linkStatememt}>{this.props.language.open}</a>
                             </button>
                         </div>
                         <table>
                             <thead>
                                 <tr>
-                                    <th className="table-head">Commission Month</th>
-                                    <th className="table-head">Earnings Amount</th>
-                                    <th className="table-head">Withheld Tax</th>
-                                    <th className="table-head">Net Earnings</th>
+                                    <th className="table-head">{this.props.language.commission_month}</th>
+                                    <th className="table-head">{this.props.language.earnings_amount}</th>
+                                    <th className="table-head">{this.props.language.withheld_tax}</th>
+                                    <th className="table-head">{this.props.language.net_earnings}</th>
                                 </tr>
                             </thead >
                             <tbody>

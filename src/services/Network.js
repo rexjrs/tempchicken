@@ -1,6 +1,42 @@
 import $ from 'jquery';
 import { apiURL, apiHEADER, marketZone } from '../components/GlobalHelpers';
 
+export function changeEmail(callback,url,token,email){
+    let data = {
+        email: email
+    }
+    $.ajax({
+        'type':'POST',
+        'url': apiURL.hydraStandard+'/customers/me',
+        'headers':{'Content-Type':'application/json','Authorization':'Bearer ' + token},
+        'data': JSON.stringify(data),
+        'success':function (result) {
+            callback(result,true)
+        },
+        'error':function (result) {
+            callback(result,false)
+        }
+    });
+}
+
+export function changePassword(callback,url,token,password){
+    let data = {
+        value: password
+    }
+    $.ajax({
+        'type':'POST',
+        'url': apiURL.hydraStandard+'/customers/me/password',
+        'headers':{'Content-Type':'application/json','Authorization':'Bearer ' + token},
+        'data': JSON.stringify(data),
+        'success':function (result) {
+            callback(result,true)
+        },
+        'error':function (result) {
+            callback(result,false)
+        }
+    });
+}
+
 export function deleteNickName(callback,url,token){
     $.ajax({
         'type':'DELETE',

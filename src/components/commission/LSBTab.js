@@ -61,7 +61,7 @@ class LSBTab extends Component {
                             <table className="table table-bordered" >
                                 <tbody>
                                     <tr>
-                                        <td className="col-head-title">Period</td>
+                                        <td className="col-head-title">{this.props.language.period}</td>
                                         <td className="col-head-title">Start</td>
                                         <td className="col-head-title">Detail</td>
                                     </tr>
@@ -73,7 +73,7 @@ class LSBTab extends Component {
                                                 <table className="table table-bordered">
                                                     <tbody>
                                                         <tr>
-                                                            <td className="col-head-title">Amount</td>
+                                                            <td className="col-head-title">{this.props.language.amount}</td>
                                                             <td className="col-head-title">Type</td>
                                                             <td className="col-head-title">Balance</td>
                                                         </tr>
@@ -106,16 +106,16 @@ class LSBTab extends Component {
                         <table>
                             <tbody>
                                 <tr>
-                                    <td className="col-head-title">Name</td>
-                                    <td>{this.props.LSBData && this.props.LSBData.globalName}}</td>
+                                    <td className="col-head-title">{this.props.language.name}</td>
+                                    <td>{this.props.LSBData && this.props.LSBData.globalName}</td>
                                 </tr>
 
                                 <tr>
-                                    <td className="col-head-title">Member ID</td>
+                                    <td className="col-head-title">{this.props.language.member_id}</td>
                                     <td>{this.props.LSBData && this.props.LSBData.id.unicity}</td>
                                 </tr>
                                 <tr>
-                                    <td className="col-head-title">Conutry</td>
+                                    <td className="col-head-title">{this.props.language.country}</td>
                                     <td>{this.props.LSBData && this.props.LSBData.country}</td>
                                 </tr>
                             </tbody>

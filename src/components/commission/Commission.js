@@ -51,14 +51,14 @@ class Commission extends Component {
         return (
             <div className="container-fluid global-container-bottom-padding">
                <div className="report-tab-container">
-                    <button onClick={()=>this.changeTab(0)} className={this.btnActive(0)}>Commission</button>
+                    <button onClick={()=>this.changeTab(0)} className={this.btnActive(0)}>{this.props.language.commission}</button>
                     <button onClick={()=>this.changeTab(1)} className={this.btnActive(1)}>LSB</button>
                 </div>
                 {this.state.tabIndex === 0 &&
-                    <CommissionTab customerData={this.props.customerData} commissionData={this.state.commission} setDataCommission={this.setDataCommission.bind(this)}/>
+                    <CommissionTab language={this.props.language} customerData={this.props.customerData} commissionData={this.state.commission} setDataCommission={this.setDataCommission.bind(this)}/>
                 }
                 {this.state.tabIndex === 1 &&
-                    <LSBTab LSBData={this.state.LSBData} setDataLSB={this.setDataLSB.bind(this)} />
+                    <LSBTab language={this.props.language} LSBData={this.state.LSBData} setDataLSB={this.setDataLSB.bind(this)} />
                 }
             </div>
         );

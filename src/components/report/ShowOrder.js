@@ -9,6 +9,7 @@ class ShowOrder extends Component {
 
     render() {
         var products = this.props.showOrderDataSource[3].map((b,i)=>{
+            console.log(b)
             let link = ""
             for(var e in this.props.productDataSource){
                 if(this.props.productDataSource[e].product_id === b.itemid){

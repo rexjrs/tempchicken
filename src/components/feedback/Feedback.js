@@ -36,7 +36,7 @@ class Feedback extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col col-md-6 offset-md-3">
                         <textarea 
                             className="feedback-box"
                             placeholder={this.props.language.tell_us}
@@ -46,8 +46,8 @@ class Feedback extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 text-center">
-                        <button onClick={this.submitFeedback.bind(this)} style={{width: "50%"}} className="global-button global-button-active white-text">{this.props.language.submit}</button>
+                    <div className="col text-center">
+                        <button onClick={this.submitFeedback.bind(this)} className="global-button global-button-active white-text">{this.props.language.submit}</button>
                         {this.state.thanks &&
                         <p style={{color: 'green'}}>{this.props.language.thank_you_feedback}</p>
                         }

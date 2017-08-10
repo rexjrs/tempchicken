@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'moment/locale/th';
 import './App.css';
 import { appConfig } from './config';
-import { checkToken } from './services/Network';
+import { checkToken, getCustomerData } from './services/Network';
 import { initialLanguage, translationsEN, translationsTH } from './components/GlobalHelpers';
 // Components
 import TopBar from './components/TopBar';
@@ -126,6 +126,14 @@ class App extends Component {
                         this.logout();
                         alert('Session has expired. Please log in again');
                     }
+                    getCustomerData(((res,status)=>{
+                        if(status){
+                            this.setState({
+                                customerData: res
+                            });
+                            localStorage.setItem("customerData",JSON.stringify(res));
+                        }
+                    }),localStorage.getItem("customerToken"),localStorage.getItem("customerHref"));
                 }else{
                     this.logout();
                     alert('Could not authenticate with server');
@@ -154,7 +162,7 @@ class App extends Component {
         return (
             <div className="App">
                 {!this.state.hideLogin &&
-                    <Login language={this.state.language} loginSuccess={this.loginSuccess.bind(this)} />
+                    <Login language={this.state.language} setLanguage={this.setLanguage.bind(this)} loginSuccess={this.loginSuccess.bind(this)} />
                 }
                 {this.state.auth &&
                 <Router history={history}>
@@ -226,6 +234,7 @@ class App extends Component {
                                 language={this.state.language}
                                 stateUpdate={this.stateUpdate.bind(this)}
                                 customerData={this.state.customerData}
+                                logout={this.logout.bind(this)}
                             />
                         }/>
                         <Route exact path={appConfig.appPath+"/report"} render={()=>

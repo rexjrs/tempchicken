@@ -18,7 +18,13 @@ export var apiURL = {
 export var links = {
     seminarQualifications: "https://member-th.unicity.com/London%20Trip%20-%20Unicity%20Leadership%20Seminar%20Proposal%202017%20(Eng).pdf",
     seminarBrochure: "https://member-th.unicity.com/London%20Trip%2020x24_2.jpg",
-    seminarImage: "https://member-th.unicity.com/cpanel/wp-content/uploads/2017/02/london2017.jpg"
+    seminarImage: "https://member-th.unicity.com/cpanel/wp-content/uploads/2017/02/london2017.jpg",
+    signUp: "https://www.unicity-easynet.com/tools/?action=register&url=member-th.unicity.com&lang=th",
+    forgotPass: "https://www.unicity-easynet.com/tools/?action=forgot&url=member-th.unicity.com&lang=th",
+    facebook: "https://www.facebook.com/UnicityInternational",
+    line: "https://line.me/R/ti/p/%40unicity",
+    youtube: "https://www.youtube.com/user/MKTunicity",
+    instagram: "https://www.instagram.com/unicity_thailand/"
 }
 
 export var marketZone = "TH";
@@ -82,6 +88,13 @@ export var translationsEN = {
     back: "Back",
     cancel: "Cancel",
     reset: "Reset",
+    member_id: "Member ID",
+    email: "Email",
+    phone_no: "Phone No.",
+    edit: "Edit",
+    save: "Save",
+    sign_up: "Sign Up",
+    forgot_pass: "Forgot Password",
     // Login page
     username: "Username",
     password: "Password",
@@ -90,6 +103,8 @@ export var translationsEN = {
     // Side Bar
     home: "Home",
     genealogy: "Genealogy",
+    shopping: "Shoping",
+    enroll: "Enroll",
     success: "Success",
     commission: "Commission",
     report: "Report",
@@ -104,14 +119,27 @@ export var translationsEN = {
     // Genealogy page
     show_all: "Show All",
     show_less: "Show Less",
-    bookmarks: "Bookmarks",
+    bookmarks: "Bookmark",
     name: "Name",
     view_ba: "View BA",
     preview_downline: "Preview Downline",
     dig_down: "Dig Down",
     leg: "Leg",
+    nickName: "Nick Name",
+    enroller: "Enroller",
+    sponsor: "Sponsor",
+    enrolled: "Enrolled",
+    status: "Status",
     // Success
     rank_achievements: "Rank Achievements",
+    // Commission
+    please_select_month: "Please select month",
+    open: "Open",
+    commission_month: "Commission Month",
+    earnings_amount: "Earnings Amount",
+    withheld_tax: "Withheld Tax",
+    net_earnings: "Net Earnings",
+    country: "Country",
     // Reports page
     start_date: "Start Date",
     end_date: "End Date",
@@ -175,6 +203,13 @@ export var translationsTH = {
     back: "กลับ",
     cancel: "ยกเลิก",
     reset: "รีเซ็ต",
+    member_id: "รหัสลูกค้า",
+    email: "อีเมล",
+    phone_no: "เลขโทรศัพท์",
+    edit: "แก้ไข",
+    save: "บันทึก",
+    sign_up: "ลงทะเบียนใช้ระบบเว็บ",
+    forgot_pass: "ลืมรหัสผ่าน",
     // Login page
     username: "หมายเลขนักธุรกิจอิสระ",
     password: "รหัสผ่าน",
@@ -183,6 +218,8 @@ export var translationsTH = {
     // Side Bar
     home: "หนัาแรก",
     genealogy: "สายงาน",
+    shopping: "สั่งซื้อ",
+    enroll: "สมัครสมาชิก",
     success: "ตำแหน่ง",
     commission: "คอมมิชชั่น",
     report: "รายงาน",
@@ -203,8 +240,21 @@ export var translationsTH = {
     preview_downline: "ดูชั้นล่าง",
     dig_down: "ขุดลงชั้น",
     leg: "สายที่",
+    nickName: "ชื่อเล่น",
+    enroller: "ผู้แนะนำ",
+    sponsor: "สปอนเซอร์",
+    enrolled: "วันที่สมัคร",
+    status: "สถานะ",
     // Success
     rank_achievements: "ตำแหน่ง",
+    // Commission
+    please_select_month: "เลือกเดือนคอมมิชชั่น",
+    open: "เลือก",
+    commission_month: "เดือนคอมมิชชั่น",
+    earnings_amount: "คอมมิชชั่น",
+    withheld_tax: "ภาษีหัก ณ ที่จ่าย",
+    net_earnings: "คอมมิชชั่นสุทธิ",
+    country: "ประเทศ",
     // Reports page
     start_date: "เลือกเดือน",
     end_date: "ถึง",

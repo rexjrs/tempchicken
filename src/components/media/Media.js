@@ -21,7 +21,7 @@ class Media extends Component {
     render() {
         var MediaCards = this.props.mediaDataSource.map((b,i)=>{
             return(
-                <div key={i} style={{marginBottom: 10}} className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div key={i} style={{marginBottom: 10}} className="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <a href={b.link} target="_blank" rel="noopener noreferrer">
                     <img src={b.image} className="img-fluid" alt="News Images"/>
                     </a>

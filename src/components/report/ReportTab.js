@@ -219,19 +219,28 @@ class ReportTab extends Component {
             );
         });
         var reportResult = this.props.reportDataSource.map((b, i) => {
+            let name = b.customer.humanName.fullName;
+            if(this.props.language.language === "TH"){
+                if(b.customer.humanName['fullName@th']){
+                    name = b.customer.humanName['fullName@th']
+                }
+            }
+            if(b.customer.nickName){
+                name = b.customer.nickName;
+            }
             return (
                 <div onClick={() => this.viewUser(b)} key={i} className="row row-border-top-bottom">
                     <div className="col global-font-size-35 text-center">
                         {i + 1}
                     </div>
                     <div className="col-8 global-font-size-35">
-                        <p className="no-margin report-tab-fullname">{b.customer.humanName.fullName}</p>
-                        Member ID: {b.customer.id.unicity}
+                        <p className="no-margin report-tab-fullname">{name}</p>
+                        {this.props.language.member_id}: {b.customer.id.unicity}
                         <br />
-                        Enrollment Date: {moment(b.customer.joinDate).format('DD/MM/YYYY')}
+                        {this.props.language.enrolled}: {moment(b.customer.joinDate).format('DD/MM/YYYY')}
                     </div>
                     <div className="col global-font-size-35">
-                        Rank: {b.customer.cumulativeMetricsProfile.highestRankShort}
+                        {this.props.language.title_rank}: {b.customer.cumulativeMetricsProfile.highestRankShort}
                     </div>
                 </div>
             )

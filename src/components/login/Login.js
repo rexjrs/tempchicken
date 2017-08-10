@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { loginUser, getCustomerData } from '../../services/Network';
+import { links } from '../GlobalHelpers';
 import Spinner from '../Spinner.js';
 
 class Login extends Component {
@@ -95,12 +96,36 @@ class Login extends Component {
                         }
                         {this.state.loggingIn &&
                          <div className="row">
-                            <div className="col">
+                            <div className="col text-center">
                                 <br/>
                                 <Spinner />
                             </div>
                         </div> 
                         }
+                        <div className="row">
+                            <div className="col text-center">
+                                <img onClick={()=>this.props.setLanguage('TH')} className="language-flag login-flag" src="./assets/thailand.png" alt="Thai Flag"/>
+                                <img onClick={()=>this.props.setLanguage('EN')} className="language-flag login-flag" src="./assets/united-states.png" alt="Thai Flag"/>
+                            </div>
+                        </div>
+                        <div className="row" style={{marginTop: 10}}>
+                            <div className="col text-center">
+                                <a href={links.signUp} target="_blank">{this.props.language.sign_up}</a> | <a href={links.forgotPass} target="_blank">{this.props.language.forgot_pass}</a>
+                            </div>
+                        </div>
+                        <div className="row" style={{marginTop: 10}}>
+                            <div className="col text-center">
+                                <a href={links.facebook} target="_blank"><img className="social-login" src="./assets/facebook.png" width="30px" alt="social pin"/></a>
+                                <a href={links.line} target="_blank"><img className="social-login" src="./assets/line.png" width="30px" alt="social pin"/></a>
+                                <a href={links.instagram} target="_blank"><img className="social-login" src="./assets/instagram.png" width="30px" alt="social pin"/></a>
+                                <a href={links.youtube} target="_blank"><img className="social-login" src="./assets/youtube.png" width="30px" alt="social pin"/></a>
+                            </div>
+                        </div>
+                        <div className="row" style={{marginTop: 10}}>
+                            <div className="col text-center" style={{fontSize: 12}}>
+                                © 2017 Copyright Unicity International
+                            </div>
+                        </div>
                         <div className="row" hidden={this.state.errorHidden}>
                             <div className="col">
                                 <p className="no-margin wrong-user">{this.props.language.incorrect_username_password}</p>

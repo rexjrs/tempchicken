@@ -116,24 +116,24 @@ class Details extends Component {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>Name</td>
+                                            <td>{this.props.language.name}</td>
                                             <td>{name}</td>
                                         </tr>
                                         <tr>
-                                            <td>Nick Name</td>
+                                            <td>{this.props.language.nickName}</td>
                                             <td>
                                                 <input disabled={this.state.disabled} value={this.state.nickName} onChange={(event)=>this.setState({nickName: event.target.value})}/>
                                                 {!this.state.disabled &&
-                                                <p onClick={this.changeName.bind(this)} className="no-margin detail-save-btn">Save</p>
+                                                <p onClick={this.changeName.bind(this)} className="no-margin detail-save-btn">{this.props.language.save}</p>
                                                 }
                                                 {this.state.disabled &&
-                                                <p onClick={()=>this.setState({disabled: false})} className="no-margin detail-save-btn">Edit</p>
+                                                <p onClick={()=>this.setState({disabled: false})} className="no-margin detail-save-btn">{this.props.language.edit}</p>
                                                 }
                                             </td>
                                         </tr>
                                         {!this.props.successPage &&
                                         <tr>
-                                            <td>Bookmarked</td>
+                                            <td>{this.props.language.bookmarks}</td>
                                             <td>
                                                 {!foundFav &&
                                                 <i onClick={this.setFav.bind(this)} className="fa fa-star-o detail-star-empty" aria-hidden="true"></i>
@@ -145,11 +145,11 @@ class Details extends Component {
                                         </tr>
                                         }
                                         <tr>
-                                            <td>Member ID</td>
+                                            <td>{this.props.language.member_id}</td>
                                             <td>{data.id.unicity}</td>
                                         </tr>
                                         <tr>
-                                            <td>VIP Code</td>
+                                            <td>VIP</td>
                                             {data.FSB &&
                                             <td>
                                                 {data.FSB}
@@ -162,19 +162,19 @@ class Details extends Component {
                                             }
                                         </tr>
                                         <tr>
-                                            <td>Email</td>
+                                            <td>{this.props.language.email}</td>
                                             <td>
                                                 {data.email}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Phone No.</td>
+                                            <td>{this.props.language.phone_no}</td>
                                             <td>
                                                 {data.homePhone}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Enroller</td>
+                                            <td>{this.props.language.enroller}</td>
                                             <td>
                                                 {data.enroller.unicity}
                                             </td>
@@ -186,7 +186,7 @@ class Details extends Component {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Sponsor</td>
+                                            <td>{this.props.language.sponsor}</td>
                                             <td>
                                                 {data.sponsor.unicity}
                                             </td>
@@ -197,13 +197,13 @@ class Details extends Component {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Enrolled</td>
+                                            <td>{this.props.language.enrolled}</td>
                                             <td>
                                                 {moment(data.joinDate).format('DD MMM YYYY')}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Status</td>
+                                            <td>{this.props.language.status}</td>
                                             <td>
                                                 {data.status} , {data.cumulativeMetricsProfile.highestRankShort}
                                             </td>

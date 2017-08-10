@@ -18,7 +18,9 @@ class SideBar extends Component {
                 <div className="menu-buttons">
                     <p onClick={()=>this.navigatePage('/')} className="linkSideBar">{this.props.language.home}</p>
                     <p onClick={()=>this.navigatePage('/genealogy')} className="linkSideBar">{this.props.language.genealogy}</p>
-                   <p onClick={()=>this.navigatePage('/success')} className="linkSideBar">{this.props.language.success}</p>
+                    <a href="https://shop.unicity.com" target="_blank"><p className="linkSideBar">{this.props.language.shopping}</p></a>
+                    <a href="https://enroll.unicity.com" target="_blank"><p className="linkSideBar">{this.props.language.enroll}</p></a>
+                    <p onClick={()=>this.navigatePage('/success')} className="linkSideBar">{this.props.language.success}</p>
                     <p onClick={()=>this.navigatePage('/commission')} className="linkSideBar">{this.props.language.commission}</p>
                     <p onClick={()=>this.navigatePage('/report')} className="linkSideBar">{this.props.language.report}</p>
                     <p onClick={()=>this.navigatePage('/news')} className="linkSideBar">{this.props.language.news}</p>
